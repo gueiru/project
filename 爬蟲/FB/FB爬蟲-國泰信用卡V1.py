@@ -36,8 +36,8 @@ def login(username, password):
     time.sleep(5)
 
 # 輸入帳號和密碼
-username = "winnie910628@gmail.com"
-password = "wu020628"
+username = "帳號"
+password = "密碼"
 
 # 登入帳號
 login(username, password)
