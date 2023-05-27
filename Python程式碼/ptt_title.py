@@ -11,18 +11,13 @@ headers = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'
 }
 
-# 發送GET請求
-url = f'https://www.ptt.cc/bbs/{board}/index.html'
-response = requests.get(url, headers=headers)
+for keyword in keywords:
+    target = f"https://www.ptt.cc/bbs/{board}/search?q={keyword}"
+    search_response = requests.get(target, headers=headers)
 
-# 檢查請求是否成功
-if response.status_code == 200:
-    # 解析HTML內容
-    soup = BeautifulSoup(response.text, 'html.parser')
-    
-    for keyword in keywords:
-        target = f"https://www.ptt.cc/bbs/{board}/search?q={keyword}"
-        articles = soup.find_all('div', class_='r-ent')
+    if search_response.status_code == 200:
+        search_soup = BeautifulSoup(search_response.text, 'html.parser')
+        articles = search_soup.find_all('div', class_='r-ent')
         # 逐一處理文章
         for article in articles:
             # 取得文章連結
@@ -35,6 +30,8 @@ if response.status_code == 200:
                 print(article_url)
         
         print("-" * 30)
-                
-else:
-    print('無法取得網頁內容')
+    else:
+        print(f'無法取得關鍵字 "{keyword}" 的搜尋結果')
+
+
+
