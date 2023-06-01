@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="主頁"
+          android:id="@+id/home"
+          android:icon="@drawable/icon_home"
+        />
+    <item android:title="明細"
+          android:id="@+id/details"
+          android:icon="@drawable/icon_details"
+        />
+    <item android:title="我的"
+          android:id="@+id/profilecircle"
+          android:icon="@drawable/icon_profilecircle"
+        />
+</menu>
