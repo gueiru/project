@@ -1,6 +1,5 @@
 import jieba
 import csv
-import os
 
 comment_list = []
 keyword_list = []

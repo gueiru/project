@@ -1,12 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import time
 
 df = pd.DataFrame(columns=['Keyword', 'Title', 'URL'])
 
 # 設定目標看板和關鍵字
 board = 'creditcard'
-keywords = ["中信", "cube", "富邦", "line", "icash", "國泰"]
+keywords = ["cube", "J卡", "line+pay卡", "all+me卡", "momo卡"]
 
 # 設定PTT需要的Headers
 headers = {
@@ -30,8 +31,8 @@ for keyword in keywords:
                 article_url = "https://www.ptt.cc" + link
                 new_row = pd.DataFrame({'Keyword': keyword, 'Title': title, 'URL': article_url}, index=[0])
                 df = pd.concat([df, new_row], ignore_index=True)
-
-        print("-"*15, f'關鍵字 "{keyword}" 的搜尋結果已獲取完畢', "-"*15)
+        print("-"*15, f'關鍵字 "{keyword}" 的搜尋結果已獲取完畢，休息一下@@', "-"*15)
+        time.sleep(3)
     else:
         print(f'無法取得關鍵字 "{keyword}" 的搜尋結果')
 
