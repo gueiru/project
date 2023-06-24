@@ -62,5 +62,5 @@ for url in url_list:
 time.sleep(3)
 data.to_csv('comment.csv', index=False, encoding = 'utf-8-sig')
 
-data = pd.read_csv('comment.csv', encoding='utf-8-sig', delimiter='\t')
+data = pd.read_csv('comment.csv', encoding='utf-8-sig', delimiter=',')
 print("done processing")
