@@ -111,5 +111,3 @@ def display_info(i):
           '預測值：', PositiveDict[Y_pred_classes[i]])
 
 display_info(2)
-
-
