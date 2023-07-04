@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EEEEEE">
+
+        <LinearLayout
+            android:layout_width="306dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="54dp"
+            android:background="@drawable/radius1"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/search"
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="25dp"
+                android:layout_weight="0"
+                android:scaleType="center"
+                app:srcCompat="@drawable/search" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="59dp"
+                android:textSize="13dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:text="搜尋" />
+
+            <ImageView
+                android:id="@+id/send"
+                android:layout_width="12dp"
+                android:layout_height="match_parent"
+                android:translationX="-10dp"
+                app:srcCompat="@drawable/send" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="48dp"
+            android:layout_height="57dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="12dp"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/piclogo" />
+
+        <LinearLayout
+            android:layout_width="326dp"
+            android:layout_height="173dp"
+            android:background="@drawable/radius2"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="42dp"
+            tools:layout_editor_absoluteY="79dp">
+
+            <TextView
+                android:id="@+id/當月消費總額"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:fontFamily="serif-monospace"
+                android:textStyle="bold"
+                android:text="當月消費總額"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"/>
+
+            <TextView
+                android:id="@+id/八千"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:fontFamily="serif-monospace"
+                android:textStyle="bold"
+                android:text="$8000"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"/>
+
+            <TextView
+                android:id="@+id/未償清總額"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:text="未償清總額 $8000"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"/>
+
+            <TextView
+                android:id="@+id/當月回饋"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:text="當月回饋 $13"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"/>
+
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
