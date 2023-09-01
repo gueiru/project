@@ -21,6 +21,7 @@ if response.status_code == 200:
     # 移除不是"卡"字元結尾和"金融卡"結尾的項目
     filtered_card_names = [card for card in card_names if card.endswith("卡") and not card.endswith("金融卡")]
     
+    
     #Use "set" to remove duplicates
     print(list(set(filtered_card_names)))
     print()
