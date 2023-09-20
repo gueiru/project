@@ -2,6 +2,8 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests
 import time
+import csv
+import os
 
 #國泰卡片
 url = 'https://www.cathaybk.com.tw/cathaybk/personal/product/credit-card/cards/'
@@ -61,4 +63,4 @@ for name in filtered_card_names:
         print(f'無法取得關鍵字 "{keyword}" 的搜尋結果')
 
 df.to_csv('國泰card_PttURL.csv', index=False, encoding='utf-8-sig')
-print("已完成")
+print("URL已抓取完成")
