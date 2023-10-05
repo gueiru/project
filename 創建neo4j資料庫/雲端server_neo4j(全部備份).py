@@ -64,7 +64,7 @@ def create_knowledge_point(tx, obj, relation, label):
 
 #超商
 with driver.session() as session:
-    convenience_store = ["SevenEleven", "FamilyMart", "萊爾富", "OK"]
+    convenience_store = ["SevenEleven", "FamilyMart", "萊爾富", "OK", "美廉社"]
     for cv in convenience_store:
         session.write_transaction(create_knowledge_point, cv, "is", "超商")
 
@@ -88,3 +88,10 @@ with driver.session() as session:
         session.write_transaction(create_knowledge_point, shop, "is", "電商")
 
 #支付方式
+with driver.session() as session:
+    shopping_websites = ["歐付寶", "橘子支付", "ezPay簡單付", "街口支付", "全盈_PAY", "全支付" 
+                         "PChome國際連", "一卡通Money", "悠遊付", "icash_Pay", "LINE_Pay", 
+                         "Apple_Pay", "Samsung_Pay", "Google_Pay", "台灣Pay", "玉山Wallet", 
+                         "Hami_Pay"]
+    for shop in shopping_websites:
+        session.write_transaction(create_knowledge_point, shop, "is", "電商")
