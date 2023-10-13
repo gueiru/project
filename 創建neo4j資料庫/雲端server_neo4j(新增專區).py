@@ -11,23 +11,9 @@ def do_Cypher(tx, text):
     return result
 
 #建立節點函式
-def create_knowledge_point(tx, obj, relation, label):
+def create_knowledge_point(tx, label, relation, obj):
     command = []
-    # 查看 node A 是否存在
-    text = "MATCH (n:"+label+" {name: '"+obj+"'}) RETURN n"
-    result = tx.run(text)
-    # 檢查查詢結果
-    if not result.peek():
-        # 如果節點不存在，則建立它
-        text = "CREATE ("+obj+":"+label+" {name: '"+obj+"'})"
-        tx.run(text)
-        command.append(text)
-        print("Node created.")
-    else:
-        print("Node already exists.")
-    print(command)
-    
-    # 查看 node B 是否存在
+    # 查看 node A 是否存在 (類別)
     text = "MATCH (n:Categorical {name: '"+label+"'}) RETURN n"
     result = tx.run(text)    
     # 檢查查詢結果
@@ -41,8 +27,24 @@ def create_knowledge_point(tx, obj, relation, label):
         print("Node already exists.")
     print(command)
     
+    # 查看 node B 是否存在
+    text = "MATCH (n:"+label+" {name: '"+obj+"'}) RETURN n"
+    result = tx.run(text)
+    # 檢查查詢結果
+    if not result.peek():
+        # 如果節點不存在，則建立它
+        text = "CREATE ("+obj+":"+label+" {name: '"+obj+"'})"
+        tx.run(text)
+        command.append(text)
+        print("Node created.")
+    else:
+        print("Node already exists.")
+    print(command)
+    
+    
+    
     # 查看 node A 與 node B 之間的關係是否存在
-    text = "MATCH (a:"+label+" {name: '"+obj+"'}), (b:Categorical {name: '"+label+"'}) RETURN EXISTS((a)-[:"+relation+"]->(b)) AS relationship_exists"
+    text = "MATCH (a:Categorical {name: '"+label+"'}), (b:"+label+" {name: '"+obj+"'}) RETURN EXISTS((a)-[:"+relation+"]->(b)) AS relationship_exists"
     result = tx.run(text)
     single_result = result.single()
     if single_result is not None:
@@ -52,7 +54,7 @@ def create_knowledge_point(tx, obj, relation, label):
     
     # 如果關聯不存在，則建立它
     if exists is False:
-        text = "MATCH (a:"+label+" {name: '"+obj+"'}), (b:Categorical {name: '"+label+"'}) CREATE (a)-[:"+relation+"]->(b)"
+        text = "MATCH (a:Categorical {name: '"+label+"'}), (b:"+label+" {name: '"+obj+"'}) CREATE (a)-[:"+relation+"]->(b)"
         tx.run(text)
         command.append(text)
         print("Relationship created.")
@@ -62,4 +64,11 @@ def create_knowledge_point(tx, obj, relation, label):
     print(command)
 
 
-#新增專區，要備份到"全部備份"的檔案
+#-------------------------------以下為建立資料庫的code------------------------------------------
+
+#超商
+with driver.session() as session:
+    convenience_store = ["SevenEleven", "FamilyMart", "萊爾富", "OK", "美廉社"]
+    for cv in convenience_store:
+        session.write_transaction(create_knowledge_point, "超商", "include", cv)
+
