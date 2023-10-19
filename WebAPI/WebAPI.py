@@ -79,12 +79,12 @@ def forgetpw():
     content = MIMEMultipart()  #建立MIMEMultipart物件
     content["subject"] = "Ucard forgot reset"  #郵件標題
     content["from"] = "ucard112408@gmail.com"  #寄件者
-    content["to"] = "10946044@ntub.edu.tw" #收件者
+    content["to"] = email #收件者
     content.attach(MIMEText("臨時密碼："+str(password)+"\n請回到app並更改密碼確保資料安全"))  #郵件內容
     with smtplib.SMTP_SSL(host="smtp.gmail.com", port=465) as smtp:  # 設定SMTP伺服器
       try:
         smtp.ehlo()  # 驗證SMTP伺服器
-        smtp.login("ucard112408@gmail.com", "qcbcezhmnjcupaam")  # 登入寄件者gmail
+        smtp.login("ucard112408@gmail.com", "密碼密碼密碼")  # 登入寄件者gmail
         smtp.send_message(content)  # 寄送郵件
         smtp.close()
       except Exception as e:
