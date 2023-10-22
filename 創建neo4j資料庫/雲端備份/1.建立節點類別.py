@@ -66,9 +66,15 @@ def create_knowledge_point(tx, label, relation, obj):
 #-------------------------------以下為建立資料庫的code------------------------------------------
 # 國泰卡片
 with driver.session() as session:
-    card8 = ["蝦皮購物聯名卡", "長榮航空聯名卡", "CUBE卡", "國泰世界卡",
-            "亞洲萬里通聯名卡", "台塑聯名卡", "雙幣卡", "eTag聯名卡"]
-    for card in card8:
+    card12 = ["蝦皮購物聯名卡", 
+             "長榮航空聯名卡", 
+             "CUBE卡_玩數位", "CUBE卡_樂饗購", "CUBE卡_趣旅行", "CUBE卡_集精選", "CUBE卡_慶生月"
+             "國泰世界卡",
+             "亞洲萬里通聯名卡",
+             "台塑聯名卡",
+             "雙幣卡",
+             "eTag聯名卡"]
+    for card in card12:
         session.write_transaction(create_knowledge_point, "國泰信用卡", "include", card)
 
 # 富邦卡片
@@ -112,13 +118,15 @@ with driver.session() as session:
 
 # 影音串流平台
 with driver.session() as session:
-    musics = ["Google_Play", "Disney_Plus", "Netflix", "Spotify", "KKBOX", "KKTV"]
+    musics = ["Google_Play", "Disney_Plus", "Netflix", "Spotify", "KKBOX", "KKTV",
+              "App_Store", "Apple_Music", "iCloud" ]
     for music in musics:
         session.write_transaction(create_knowledge_point, "串流平台", "include", music)
 
 #電商平台
 with driver.session() as session:
-    shopping_websites = ["蝦皮購物", "momo購物網", "PChome線上購物", "Yahoo奇摩購物中心", "小樹購"]
+    shopping_websites = ["蝦皮購物", "momo購物網", "PChome線上購物", "Yahoo奇摩購物中心", "小樹購",
+                         "Amazon", "淘寶", "天貓"]
     for shop in shopping_websites:
         session.write_transaction(create_knowledge_point, "電商", "include", shop)
 
@@ -137,6 +145,23 @@ with driver.session() as session:
     for transportation in Traffic_List:
         session.write_transaction(create_knowledge_point, "交通", "include", transportation)
 
+
+# 百貨公司
+with driver.session() as session:
+    shopping_centers = ["遠東SOGO百貨", "太平洋百貨", "新光三越",
+                        "SKM_Park", "遠東百貨", "Big_City遠東巨城購物中心",
+                        "微風廣場", "誠品生活", "環球購物中心",
+                        "CITYLINK", "BELLAVITA", "統一時代",
+                        "台北101", "ATT_4_FUN", "明曜百貨",
+                        "京站", "美麗華", "大葉高島屋",
+                        "遠企購物中心", "比漾廣場", "大江國際購物中心",
+                        "中友百貨", "廣三SOGO", "Tiger_City",
+                        "勤美誠品綠園道", "金典綠園道", "大魯閣新時代",
+                        "耐斯廣場", "南紡購物中心", "德安百貨",
+                        "夢時代", "大立百貨", "大統百貨",
+                        "漢神百貨", "漢神巨蛋", "MITS"]
+    for shop in shopping_centers:
+        session.write_transaction(create_knowledge_point, "百貨公司", "include", shop)
 
 
 print("done")
