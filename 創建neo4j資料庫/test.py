@@ -3,8 +3,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 #更改Neo4j Bolt連線設定
-uri = "neo4j+s://cd122923.databases.neo4j.io "
-driver = GraphDatabase.driver(uri, auth=("neo4j", "XMvLaxouvDASwAcmMpcndl7W9j6pf6RpLs7ahPjjxQg"))
+uri = "bolt://localhost:7687"
+driver = GraphDatabase.driver(uri, auth=("neo4j", "Test20020422"))
 
 def do_Cypher(tx, text):
     result = tx.run(text)
