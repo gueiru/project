@@ -25,6 +25,14 @@ class users(db.Model):
     self.email = email
     self.password = password
 
+class banks(db.Model):
+  bank_id = db.Column(db.String(3), primary_key=True)
+  bank_name = db.Column(db.String(15))
+
+  def __init__(self, bank_id, bank_name):
+    self.id = bank_id
+    self.name = bank_name
+
 @app.route('/login', methods=['POST'])
 def login():
   email = request.json['email']
@@ -37,7 +45,8 @@ def login():
   if not bcrypt.check_password_hash(user.password, password):
     return jsonify({'message': '密碼錯誤'}), 401
   # 登入成功通知
-  return jsonify({'message': 'User logged in successfully','token': email}), 200
+  username = email[:email.index("@")]
+  return jsonify({'message': 'User logged in successfully','userinf':{'username': username,'email': email,'token': 'token'}}), 200
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -47,9 +56,9 @@ def register():
   # 檢查是否註冊
   email_check = users.query.filter_by(email=email).first()
   if email_check:
-    return jsonify({'message': '電子信箱已註冊過','token': email}), 400
+    return jsonify({'message': '電子信箱已註冊過'}), 400
   # Create a new user
-  new_user = users('000001',email, hashed_password)
+  new_user = users('000002',email, hashed_password)
   db.session.add(new_user)
   db.session.commit()
 
@@ -80,20 +89,33 @@ def forgetpw():
     content["subject"] = "Ucard forgot reset"  #郵件標題
     content["from"] = "ucard112408@gmail.com"  #寄件者
     content["to"] = email #收件者
-    content.attach(MIMEText("臨時密碼："+str(password)+"\n請回到app並更改密碼確保資料安全"))  #郵件內容
+    content.attach(MIMEText("臨時密碼："+str(password)+"\n請立即回到app並更改密碼確保資料安全"))  #郵件內容
     with smtplib.SMTP_SSL(host="smtp.gmail.com", port=465) as smtp:  # 設定SMTP伺服器
       try:
         smtp.ehlo()  # 驗證SMTP伺服器
-        smtp.login("ucard112408@gmail.com", "密碼密碼密碼")  # 登入寄件者gmail
+        smtp.login("ucard112408@gmail.com", "這是密碼這是密碼這是密碼這是密碼")  # 登入寄件者gmail************************************************
         smtp.send_message(content)  # 寄送郵件
         smtp.close()
       except Exception as e:
         print("Error message: ", e)
-
+  
   password = hashlib.sha256(password.encode('utf-8')).hexdigest()
   users.query.filter_by(email=email).update({'password': bcrypt.generate_password_hash(password=password)})
   db.session.commit()
   return jsonify({'message': 'User change password successfully'}), 202
+
+@app.route('/getbank', methods=['POST'])
+def getbank():
+  banklist = banks.query.all()
+  # 陣列化資料
+  serialized_banks = []
+  for bank in banklist:
+    serialized_bank = {
+      'bank_id': bank.bank_id,
+      'bank_name': bank.bank_name
+    }
+    serialized_banks.append(serialized_bank)
+  return jsonify({'bank':serialized_banks,'message': 'getbank successfully'}),203
 
 if __name__ == '__main__':
   app.run(debug='true',host='192.168.50.151')
