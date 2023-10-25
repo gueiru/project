@@ -64,51 +64,72 @@ def create_knowledge_point(tx, label, relation, obj):
     print(command)
 
 #-------------------------------以下為建立資料庫的code------------------------------------------
-# 國泰卡片
-with driver.session() as session:
-    card12 = ["蝦皮購物聯名卡", 
-             "長榮航空聯名卡", 
-             "CUBE卡_玩數位", "CUBE卡_樂饗購", "CUBE卡_趣旅行", "CUBE卡_集精選", "CUBE卡_慶生月"
-             "國泰世界卡",
-             "亞洲萬里通聯名卡",
-             "台塑聯名卡",
-             "雙幣卡",
-             "eTag聯名卡"]
-    for card in card12:
-        session.write_transaction(create_knowledge_point, "國泰信用卡", "include", card)
 
-# 富邦卡片
+# 國內餐飲
 with driver.session() as session:
-    card20 = [  "富邦J卡", "富邦IMPERIAL尊御世界卡", "富邦數位生活卡",
-                "富邦鑽保卡", "富邦財神系列卡", "Open_Possible聯名卡",
-                "富邦世界卡", "富邦無限卡", "富邦富利生活系列卡", "富邦鈦金卡",
-                "富邦銀行卡", "富邦Costco聯名卡", "momo卡", "富邦悍將悠遊聯名卡",
-                "台茂聯名卡", "廣三SOGO聯名卡", "采盟聯名卡",
-                "DHC聯名卡", "福華聯名卡", "麗嬰房聯名卡"]
-    for card in card20:
-        session.write_transaction(create_knowledge_point, "富邦信用卡", "include", card)
+    restaurants= [
+                #王品
+                "王品牛排", "TASTy西堤牛排", "丰禾和牛涮",
+                "肉次方燒肉放題", "Oh_my原燒", "和牛涮",
+                "尬鍋台式潮鍋", "聚北海道昆布鍋", "石二鍋",
+                "青花驕", "_12MINI", "陶板屋",
+                "藝奇和牛岩板焼", "夏慕尼新香榭鐵板燒", "品田牧場",
+                "享鴨", "hot7鐵板燒", "莆田"
+                #築間
+                "築間幸福鍋物", "燒肉Smile", "有之和牛鍋物放題", "本格和牛燒肉放題", "繪馬別邸"
+                #瓦城
+                "瓦城泰國料理", "非常泰概念餐坊", "_1010湘",
+                "大心新泰式麵食", "時時香RICE_BAR", "YABI_KITCHEN",
+                "月月THAI_BBQ", "樂子The_Dinner"
+                ]
+    for r in restaurants:
+        session.write_transaction(create_knowledge_point, "國內餐飲", "include", r)
 
-# 中信卡片
+
+#訂房平台
 with driver.session() as session:
-    card49 = [  "Agoda聯名卡", "Mitsui_Shopping_Park_LaLaport聯名卡", "ALL_ME卡",
-                "LINE_Pay信用卡", "英雄聯盟信用卡", "中油聯名卡",
-                "中信商旅鈦金卡", "TAIPEI_101聯名卡_尊榮鼎極卡", "TAIPEI_101聯名卡_新鼎極卡",
-                "TAIPEI_101聯名卡_新御璽卡", "和泰聯名卡","中國信託鼎極卡_無限卡_極緻卡",
-                "中國信託鼎極卡_世界卡", "中信紅利御璽卡","中信紅利晶緻卡",
-                "中信現金回饋御璽卡","中信現金回饋鈦金卡","中信紅利卡",
-                "寰遊美國運通卡","Super_Life_VISA卡", "中信兄弟聯名卡_鼎極卡",
-                "中信兄弟聯名卡_御璽_鈦金卡","中信兄弟聯名卡_白金卡","中信兄弟聯名卡_不限卡別",
-                "LEXUS聯名卡","中信商務卡_雙幣商務卡","中華電信聯名卡",
-                "漢神百貨聯名卡_無限卡","漢神百貨聯名卡_世界卡", "漢神百貨聯名卡_御璽卡",
-                "漢神百貨聯名卡_晶緻卡", "漢神百貨聯名卡_鈦金卡","Global_Mall聯名卡_無限卡",
-                "Global_Mall聯名卡_御璽卡","Global_Mall聯名卡_白金卡","秀泰聯名卡_晶緻卡",
-                "秀泰聯名卡_白金卡","大葉髙島屋百貨聯名卡_世界卡", "大葉髙島屋百貨聯名卡_無限卡",
-                "大葉髙島屋百貨聯名卡_鈦金卡","大葉髙島屋百貨聯名卡_御璽卡_晶緻卡","大葉髙島屋百貨聯名卡_白金卡",
-                "南紡購物中心聯名卡_鼎極無限卡","南紡購物中心聯名卡_御璽卡","勤美天地聯名卡_御璽卡_晶緻卡",   
-                "勤美天地聯名卡_白金卡","MUJI無印良品聯名卡", "酷玩卡",
-                "統一企業認同卡"]
-    for card in card49:
-        session.write_transaction(create_knowledge_point, "中信信用卡", "include", card)
+	travel_platforms = [
+    "KKday", "Agoda", "KLOOK", "Airbnb", "Hotels.com",
+    "Expedia", "Booking.com", "Trip.com", "AsiaYo"
+		]
+	for plt in travel_platforms:
+	        session.write_transaction(create_knowledge_point, "訂房平台", "include", plt)
+
+# 百貨公司
+with driver.session() as session:
+    shopping_centers = ["遠東SOGO百貨", "太平洋百貨", "新光三越", "SKM_Park", "遠東百貨",
+                        "Big_City遠東巨城購物中心", "微風廣場", "誠品生活", "環球購物中心", "CITYLINK",
+                        "BELLAVITA", "統一時代", "台北101", "ATT_4_FUN", "明曜百貨", "京站",
+                        "美麗華", "大葉高島屋", "遠企購物中心", "比漾廣場", "大江國際購物中心",
+                        "中友百貨", "廣三SOGO", "Tiger_City", "勤美誠品綠園道", "金典綠園道",
+                        "大魯閣新時代", "耐斯廣場", "南紡購物中心", "德安百貨", "夢時代", "大立百貨",
+                        "大統百貨", "漢神百貨", "漢神巨蛋",
+                        "林口MITSUI_OUTLET_PARK", "台中港MITSUI_OUTLET_PARK", "台南MITSUI_OUTLET_PARK",
+                        "台中Mitsui_Shopping_Park_LaLaport", "禮客", "義大世界購物廣場", "華泰名品城",
+                        "義享天地", "麗寶OUTLET_Mall", "麗寶百貨廣場", "秀泰生活", "徐匯廣場",
+                        "台茂購物中心", "桃園統領百貨", "新月廣場", "日曜天地", "三創生活", "_6_Plaza廣場",
+                        "iFG遠雄廣場", "台南FOCUS", "悅誠廣場", "欣欣百貨", "宏匯廣場",
+                        "高雄棧貳庫商場", "樂購廣場", "NOKE忠泰樂生活", "昇恆昌"]
+    for shop in shopping_centers:
+        session.write_transaction(create_knowledge_point, "百貨公司", "include", shop)
+        
+# 國內藥妝
+with driver.session() as session:
+    pharmacies = [
+        "康是美", "寶雅", "屈臣氏", "日藥本舖", "Tomod_s", "松本清"
+    ]
+    for p in pharmacies:
+        session.write_transaction(create_knowledge_point, "國內餐飲", "include", p)
+
+# 外送平台
+with driver.session() as session:
+    food_delivery_platforms = [
+        "Uber_Eats",
+        "foodpanda",
+        "foodomo",
+        "inline"]
+    for p in food_delivery_platforms:
+        session.write_transaction(create_knowledge_point, "外送平台", "include", p)
 
 #超商
 with driver.session() as session:
@@ -141,27 +162,56 @@ with driver.session() as session:
         
 #交通
 with driver.session() as session:
-    Traffic_List = ["高鐵", "計程車", "公車", "台鐵", "捷運", "飛機"]
+    Traffic_List = ["高鐵", "計程車", "公車", "台鐵", "捷運", "飛機"
+					"Uber", "LINE TAXI", "yoxi", "台灣大車隊", "大都會計程車",
+					"和運租車", "iRent", "格上租車", "中租租車", "AVIS租車"]
     for transportation in Traffic_List:
         session.write_transaction(create_knowledge_point, "交通", "include", transportation)
 
-
-# 百貨公司
+# 國泰卡片
 with driver.session() as session:
-    shopping_centers = ["遠東SOGO百貨", "太平洋百貨", "新光三越",
-                        "SKM_Park", "遠東百貨", "Big_City遠東巨城購物中心",
-                        "微風廣場", "誠品生活", "環球購物中心",
-                        "CITYLINK", "BELLAVITA", "統一時代",
-                        "台北101", "ATT_4_FUN", "明曜百貨",
-                        "京站", "美麗華", "大葉高島屋",
-                        "遠企購物中心", "比漾廣場", "大江國際購物中心",
-                        "中友百貨", "廣三SOGO", "Tiger_City",
-                        "勤美誠品綠園道", "金典綠園道", "大魯閣新時代",
-                        "耐斯廣場", "南紡購物中心", "德安百貨",
-                        "夢時代", "大立百貨", "大統百貨",
-                        "漢神百貨", "漢神巨蛋", "MITS"]
-    for shop in shopping_centers:
-        session.write_transaction(create_knowledge_point, "百貨公司", "include", shop)
+    card12 = ["蝦皮購物聯名卡", 
+             "長榮航空聯名卡", 
+             "CUBE卡_玩數位", "CUBE卡_樂饗購", "CUBE卡_趣旅行", "CUBE卡_集精選", "CUBE卡_慶生月"
+             "國泰世界卡",
+             "亞洲萬里通聯名卡",
+             "台塑聯名卡",
+             "雙幣卡",
+             "eTag聯名卡"]
+    for card in card12:
+        session.write_transaction(create_knowledge_point, "國泰信用卡", "include", card)
+
+# 富邦卡片
+with driver.session() as session:
+    card20 = [  "富邦J卡", "富邦IMPERIAL尊御世界卡", "富邦數位生活卡",
+                "富邦鑽保卡", "富邦財神系列卡", "Open_Possible聯名卡",
+                "富邦世界卡", "富邦無限卡", "富邦富利生活系列卡", "富邦鈦金卡",
+                "富邦銀行卡", "富邦Costco聯名卡", "momo卡", "富邦悍將悠遊聯名卡",
+                "台茂聯名卡", "廣三SOGO聯名卡", "采盟聯名卡",
+                "DHC聯名卡", "福華聯名卡", "麗嬰房聯名卡"]
+    for card in card20:
+        session.write_transaction(create_knowledge_point, "富邦信用卡", "include", card)
 
 
+# 中信卡片
+with driver.session() as session:
+    card49 = [  "Agoda聯名卡", "Mitsui_Shopping_Park_LaLaport聯名卡", "ALL_ME卡",
+                "LINE_Pay信用卡", "英雄聯盟信用卡", "中油聯名卡",
+                "中信商旅鈦金卡", "TAIPEI_101聯名卡_尊榮鼎極卡", "TAIPEI_101聯名卡_新鼎極卡",
+                "TAIPEI_101聯名卡_新御璽卡", "和泰聯名卡","中國信託鼎極卡_無限卡_極緻卡",
+                "中國信託鼎極卡_世界卡", "中信紅利御璽卡","中信紅利晶緻卡",
+                "中信現金回饋御璽卡","中信現金回饋鈦金卡","中信紅利卡",
+                "寰遊美國運通卡","Super_Life_VISA卡", "中信兄弟聯名卡_鼎極卡",
+                "中信兄弟聯名卡_御璽_鈦金卡","中信兄弟聯名卡_白金卡","中信兄弟聯名卡_不限卡別",
+                "LEXUS聯名卡","中信商務卡_雙幣商務卡","中華電信聯名卡",
+                "漢神百貨聯名卡_無限卡","漢神百貨聯名卡_世界卡", "漢神百貨聯名卡_御璽卡",
+                "漢神百貨聯名卡_晶緻卡", "漢神百貨聯名卡_鈦金卡","Global_Mall聯名卡_無限卡",
+                "Global_Mall聯名卡_御璽卡","Global_Mall聯名卡_白金卡","秀泰聯名卡_晶緻卡",
+                "秀泰聯名卡_白金卡","大葉髙島屋百貨聯名卡_世界卡", "大葉髙島屋百貨聯名卡_無限卡",
+                "大葉髙島屋百貨聯名卡_鈦金卡","大葉髙島屋百貨聯名卡_御璽卡_晶緻卡","大葉髙島屋百貨聯名卡_白金卡",
+                "南紡購物中心聯名卡_鼎極無限卡","南紡購物中心聯名卡_御璽卡","勤美天地聯名卡_御璽卡_晶緻卡",   
+                "勤美天地聯名卡_白金卡","MUJI無印良品聯名卡", "酷玩卡",
+                "統一企業認同卡"]
+    for card in card49:
+        session.write_transaction(create_knowledge_point, "中信信用卡", "include", card)
 print("------------------done------------------")
