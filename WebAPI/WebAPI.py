@@ -11,7 +11,7 @@ import hashlib
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://test:test@localhost:3306/ucardtest'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://test:test@localhost:3306/ucard'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt()
 
@@ -58,11 +58,12 @@ def register():
   if email_check:
     return jsonify({'message': '電子信箱已註冊過'}), 400
   # Create a new user
-  new_user = users('000002',email, hashed_password)
+  new_user = users(None,email, hashed_password)
   db.session.add(new_user)
   db.session.commit()
+  username = email[:email.index("@")]
 
-  return jsonify({'message': 'User registered successfully'}), 201
+  return jsonify({'message': 'User registered successfully','userinf':{'username': username,'email': email,'token': 'token'}}), 201
 
 @app.route('/forgetpw', methods=['POST'])
 def forgetpw():
@@ -84,7 +85,6 @@ def forgetpw():
           number +=1
       if(lowercase!=0 and number!=0 and uppercase!=0): #檢查是否符合包含大小寫英文及數字如有就不用重新生成
         break  
-      
     content = MIMEMultipart()  #建立MIMEMultipart物件
     content["subject"] = "Ucard forgot reset"  #郵件標題
     content["from"] = "ucard112408@gmail.com"  #寄件者
@@ -93,7 +93,7 @@ def forgetpw():
     with smtplib.SMTP_SSL(host="smtp.gmail.com", port=465) as smtp:  # 設定SMTP伺服器
       try:
         smtp.ehlo()  # 驗證SMTP伺服器
-        smtp.login("ucard112408@gmail.com", "這是密碼這是密碼這是密碼這是密碼")  # 登入寄件者gmail************************************************
+        smtp.login("ucard112408@gmail.com", "這是密碼要輸入")  # 登入寄件者gmail**********************************
         smtp.send_message(content)  # 寄送郵件
         smtp.close()
       except Exception as e:
@@ -103,6 +103,20 @@ def forgetpw():
   users.query.filter_by(email=email).update({'password': bcrypt.generate_password_hash(password=password)})
   db.session.commit()
   return jsonify({'message': 'User change password successfully'}), 202
+
+@app.route('/changepwd', methods=['POST'])
+def changepwd():
+  email = request.json['email']
+  password = request.json['password']
+  newpassword = request.json['newpassword']
+  user = users.query.filter_by(email=email).first()
+  #判斷舊密碼是否正確
+  if not bcrypt.check_password_hash(user.password, password):
+    return jsonify({'message': '密碼錯誤'}), 401
+  users.query.filter_by(email=email).update({'password': bcrypt.generate_password_hash(password=newpassword)})
+  db.session.commit()
+  username = email[:email.index("@")]
+  return jsonify({'message': 'User logged in successfully','userinf':{'username': username,'email': email,'token': 'token'}}), 203
 
 @app.route('/getbank', methods=['POST'])
 def getbank():
