@@ -12,17 +12,43 @@ def do_Cypher(tx, text):
 
 #建立節點函式
 def create_relationship(tx, from_node_name, to_node_names, relation_type):
-    # 查詢並建立關聯
+    # 使用MERGE來建立關聯，如果關聯已存在，則不會重複建立
     query = (
         "MATCH (from_node {name: $from_node_name}) "
-        "MATCH (to_nodes) WHERE to_nodes.name IN $to_node_names "
-        "WITH from_node, COLLECT(to_nodes) AS targets "
-        "FOREACH (target IN targets | CREATE (from_node)-[r:" + relation_type + "]->(target))"
+        "UNWIND $to_node_names AS to_node_name "
+        "MATCH (to_node {name: to_node_name}) "
+        "MERGE (from_node)-[r:" + relation_type + "]->(to_node) "
+        "RETURN r"
     )
 
-    tx.run(query, from_node_name=from_node_name, to_node_names=to_node_names)
-
+    result = tx.run(query, from_node_name=from_node_name, to_node_names=to_node_names)
+    
+    if result.peek():
+        print("--Relationship existed--")
+    else:
+        print("++Relationship created++")
+        
 #-------------------------------以下為建立資料庫的 code------------------------------------------
+
+# CUBE卡_趣旅行
+with driver.session() as session:
+    rewards = [
+        "日本", "韓國", "泰國", "新加坡", "國外餐飲",
+               
+        "Uber", "LINE_TAXI", "yoxi", "台灣大車隊", "大都會計程車", "飛機",
+        
+        "民宿", "青年旅館", "連鎖飯店",
+        
+        "KKday", "Agoda", "KLOOK", "Airbnb", "Hotels_com",
+        "Expedia", "Booking_com", "Trip_com", "AsiaYo",
+        
+        "ezTravel易遊網", "雄獅旅遊",
+        "可樂旅遊", "東南旅遊", "五福旅遊", "燦星旅遊", "山富旅遊", "長汎假期",
+        "鳳凰旅行社", "Ezfly易飛網", "理想旅遊", "永利旅行社", "三賀旅行社"
+        ]
+
+								
+    session.write_transaction(create_relationship, "CUBE卡_趣旅行", rewards, "reward")
   
 # CUBE卡_玩數位
 with driver.session() as session:
