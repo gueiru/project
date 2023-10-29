@@ -3,9 +3,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 #更改Neo4j Bolt連線設定
-uri = "bolt://localhost:7687"
-#這是林宜靜"本地"的neo4j密碼！！！
-driver = GraphDatabase.driver(uri, auth=("neo4j", "Test1022"))
+uri = "neo4j+s://cd122923.databases.neo4j.io "
+driver = GraphDatabase.driver(uri, auth=("neo4j", "XMvLaxouvDASwAcmMpcndl7W9j6pf6RpLs7ahPjjxQg"))
 
 def do_Cypher(tx, text):
     result = tx.run(text)
@@ -28,52 +27,15 @@ def create_relationship(tx, from_node_name, to_node_names, relation_type):
         print("--Relationship existed--")
     else:
         print("++Relationship created++")
-
-
+        
 #-------------------------------以下為建立資料庫的 code------------------------------------------
-# CUBE卡_慶生月
-with driver.session() as session:
-    rewards = [
-        "遠東SOGO百貨", "太平洋百貨", "廣三SOGO0",
-        
-        "民宿", "青年旅館", "連鎖飯店",
-        
-        "茹絲葵經典牛排館", "屋馬燒肉", "solo_pasta義大利麵", 
-        "俺達の肉屋_日本和牛專門店", "鹽之華法式餐廳", "廚房有雞花雕雞", "碳佐麻里精品燒肉", 
-        "与玥樓頂級粵菜餐廳", "RAW", "山海樓", "金蓬萊遵古台菜餐廳", "老新台菜",
-        
-        "國賓影城", "威秀影城", "ShowTimes秀泰影城",
-        
-        "錢櫃KTV", "好樂迪KTV", "星聚點KTV", "享溫馨KTV" 
-    ]
-    session.write_transaction(create_relationship,"CUBE卡_慶生月", rewards, "reward")
-    
-# CUBE卡_集精選
-with driver.session() as session:
-    rewards = [
-        "家樂福",
-        "台灣中油-直營店",
-        "高鐵",
-        "SevenEleven", "FamilyMart", "全聯福利中心"
-        "麥當勞", "星巴克",
-        "foodomo",
-        "遠東SOGO百貨",
-        "博客來",
-        "城市車旅", "嘟嘟房",
-        "OPEN錢包"
-    ]
-    session.write_transaction(create_relationship,"CUBE卡_集精選", rewards, "reward")
-    
+
 # CUBE卡_趣旅行
 with driver.session() as session:
     rewards = [
         "日本", "韓國", "泰國", "新加坡", "國外餐飲",
                
-        "Uber", "LINE_TAXI", "yoxi", "台灣大車隊", "大都會計程車",
-        
-        "和運租車", "iRent", "格上租車", "中租租車", "AVIS租車",
-        
-        "飛機",
+        "Uber", "LINE_TAXI", "yoxi", "台灣大車隊", "大都會計程車", "飛機",
         
         "民宿", "青年旅館", "連鎖飯店",
         
@@ -84,6 +46,8 @@ with driver.session() as session:
         "可樂旅遊", "東南旅遊", "五福旅遊", "燦星旅遊", "山富旅遊", "長汎假期",
         "鳳凰旅行社", "Ezfly易飛網", "理想旅遊", "永利旅行社", "三賀旅行社"
         ]
+
+								
     session.write_transaction(create_relationship, "CUBE卡_趣旅行", rewards, "reward")
   
 # CUBE卡_玩數位

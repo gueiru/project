@@ -13,7 +13,7 @@ import time
 df = pd.DataFrame(columns=['Keyword', 'Title', 'URL'])
 
 # 設定目標看板和關鍵字
-board = 'creditcard'
+#board = 'creditcard'
 keywords = ["eTag聯名卡", "雙幣卡", "台塑聯名卡", "長榮航空聯名卡" ,"亞洲萬里通聯名卡", "商務卡", "現金回饋御璽卡", "世界卡", "蝦皮購物聯名卡", "CUBE卡"]
 
 # 設定PTT需要的Headers
@@ -23,7 +23,7 @@ headers = {
 }
 
 for keyword in keywords:
-    target = f"https://www.ptt.cc/bbs/{board}/search?q={keyword}"
+    target = f"https://www.mobile01.com/googlesearch.php?query={keyword}"
     search_response = requests.get(target, headers=headers)
     if search_response.status_code == 200:
         search_soup = BeautifulSoup(search_response.text, 'html.parser')
