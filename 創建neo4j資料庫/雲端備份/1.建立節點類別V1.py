@@ -3,9 +3,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 #更改Neo4j Bolt連線設定
-uri = "bolt://localhost:7687"
-#這是林宜靜"本地"的neo4j密碼！！！
-driver = GraphDatabase.driver(uri, auth=("neo4j", "Test1022"))
+uri = "neo4j+s://cd122923.databases.neo4j.io "
+driver = GraphDatabase.driver(uri, auth=("neo4j", "XMvLaxouvDASwAcmMpcndl7W9j6pf6RpLs7ahPjjxQg"))
 
 def do_Cypher(tx, text):
     result = tx.run(text)
@@ -68,49 +67,23 @@ def create_knowledge_point(tx, label, relation, obj):
 
 # 國內餐飲
 with driver.session() as session:
-    restaurants = [
-        "王品牛排", "TASTy西堤牛排", "丰龢和牛涮", "肉次方燒肉放題", "Oh_my原燒",
-        "和牛涮", "尬鍋台式潮鍋", "聚北海道昆布鍋", "石二鍋", "青花驕",
-        "_12MINI", "陶板屋", "藝奇和牛岩板焼", "夏慕尼新香榭鐵板燒", "品田牧場",
-        "享鴨", "hot7鐵板燒", "莆田", "築間幸福鍋物", "燒肉Smile",
-        "有之和牛鍋物放題", "本格和牛燒肉放題", "繪馬別邸", "瓦城泰國料理", 
-        "非常泰概念餐坊", "_1010湘", "大心新泰式麵食", "時時香RICE_BAR", "YABI_KITCHEN", 
-        "月月THAI_BBQ", "樂子The_Dinner", "茹絲葵經典牛排館", "屋馬燒肉", "solo_pasta義大利麵", 
-        "俺達の肉屋_日本和牛專門店", "鹽之華法式餐廳", "廚房有雞花雕雞", "碳佐麻里精品燒肉", 
-        "与玥樓頂級粵菜餐廳", "RAW", "山海樓", "金蓬萊遵古台菜餐廳", "老新台菜", 
-        "麥當勞", "星巴克"
-    ]
+    restaurants= [
+                #王品
+                "王品牛排", "TASTy西堤牛排", "丰禾和牛涮",
+                "肉次方燒肉放題", "Oh_my原燒", "和牛涮",
+                "尬鍋台式潮鍋", "聚北海道昆布鍋", "石二鍋",
+                "青花驕", "_12MINI", "陶板屋",
+                "藝奇和牛岩板焼", "夏慕尼新香榭鐵板燒", "品田牧場",
+                "享鴨", "hot7鐵板燒", "莆田",
+                #築間
+                "築間幸福鍋物", "燒肉Smile", "有之和牛鍋物放題", "本格和牛燒肉放題", "繪馬別邸",
+                #瓦城
+                "瓦城泰國料理", "非常泰概念餐坊", "_1010湘",
+                "大心新泰式麵食", "時時香RICE_BAR", "YABI_KITCHEN",
+                "月月THAI_BBQ", "樂子The_Dinner"
+                ]
     for r in restaurants:
         session.write_transaction(create_knowledge_point, "國內餐飲", "include", r)
-print("----------------------------------------------------------------")
-
-# 娛樂
-with driver.session() as session:
-    ent = [
-        "錢櫃KTV", "好樂迪KTV", "星聚點KTV", "享溫馨KTV", 
-        
-        "國賓影城", "威秀影城", "ShowTimes秀泰影城"
-    ]
-    for e in ent:
-        session.write_transaction(create_knowledge_point,"娛樂", "include", e)
-print("----------------------------------------------------------------")
-
-# 停車場
-with driver.session() as session:
-    park = [
-        "城市車旅", "嘟嘟房"
-    ]
-    for p in park:
-        session.write_transaction(create_knowledge_point,"停車場", "include", p)
-print("----------------------------------------------------------------")
-
-# 超市
-with driver.session() as session:
-    markets = [
-        "家樂福", "全聯福利中心"
-    ]
-    for m in markets:
-        session.write_transaction(create_knowledge_point,"超市", "include", m)
 print("----------------------------------------------------------------")
 
 #飯店住宿
@@ -122,17 +95,6 @@ with driver.session() as session:
         session.write_transaction(create_knowledge_point, "飯店住宿", "include", h)
 print("----------------------------------------------------------------")
 
-# 旅行社
-with driver.session() as session:
-    travel_agencies = [
-    "ezTravel易遊網", "雄獅旅遊",
-    "可樂旅遊", "東南旅遊", "五福旅遊", "燦星旅遊", "山富旅遊", "長汎假期",
-    "鳳凰旅行社", "Ezfly易飛網", "理想旅遊", "永利旅行社", "三賀旅行社"  
-    ]
-    for ta in travel_agencies:
-        session.write_transaction(create_knowledge_point, "旅行社", "include", ta)
-print("----------------------------------------------------------------")
-
 # 訂房平台
 with driver.session() as session:
 	travel_platforms = [
@@ -141,6 +103,17 @@ with driver.session() as session:
 		]
 	for plt in travel_platforms:
 	        session.write_transaction(create_knowledge_point, "訂房平台", "include", plt)
+print("----------------------------------------------------------------")
+
+# 旅行社
+with driver.session() as session:
+    travel_agencies = [
+    "ezTravel易遊網", "雄獅旅遊",
+    "可樂旅遊", "東南旅遊", "五福旅遊", "燦星旅遊", "山富旅遊", "長汎假期",
+    "鳳凰旅行社", "Ezfly易飛網", "理想旅遊", "永利旅行社", "三賀旅行社"
+    ]
+    for ta in travel_agencies:
+        session.write_transaction(create_knowledge_point, "旅行社", "include", ta)
 print("----------------------------------------------------------------")
 
 # 百貨公司
@@ -200,7 +173,7 @@ print("----------------------------------------------------------------")
 #電商平台
 with driver.session() as session:
     shopping_websites = ["蝦皮購物", "momo購物網", "PChome線上購物", "Yahoo奇摩購物中心", "小樹購",
-                         "Amazon", "淘寶", "天貓", "博客來"]
+                         "Amazon", "淘寶", "天貓"]
     for shop in shopping_websites:
         session.write_transaction(create_knowledge_point, "電商", "include", shop)
 print("----------------------------------------------------------------")
@@ -210,7 +183,7 @@ with driver.session() as session:
     PayList = [ "歐付寶", "橘子支付", "ezPay簡單付", "街口支付", "全盈_PAY", "全支付" 
                 "PChome國際連", "一卡通Money", "悠遊付", "icash_Pay", "LINE_Pay", 
                 "Apple_Pay", "Samsung_Pay", "Google_Pay", "台灣Pay", "玉山Wallet", 
-                "Hami_Pay", "OPEN錢包"]
+                "Hami_Pay"]
     for pay in PayList:
         session.write_transaction(create_knowledge_point, "支付方式", "include", pay)
 print("----------------------------------------------------------------")
@@ -219,9 +192,7 @@ print("----------------------------------------------------------------")
 with driver.session() as session:
     Traffic_List = ["高鐵", "計程車", "公車", "台鐵", "捷運", "飛機"
 					"Uber", "LINE_TAXI", "yoxi", "台灣大車隊", "大都會計程車",
-					"和運租車", "iRent", "格上租車", "中租租車", "AVIS租車",
-                    "台灣中油_直營店"
-     ]
+					"和運租車", "iRent", "格上租車", "中租租車", "AVIS租車"]
     for transportation in Traffic_List:
         session.write_transaction(create_knowledge_point, "交通", "include", transportation)
 print("----------------------------------------------------------------")
@@ -230,7 +201,7 @@ print("----------------------------------------------------------------")
 with driver.session() as session:
     card12 = ["蝦皮購物聯名卡", 
              "長榮航空聯名卡", 
-             "CUBE卡_玩數位", "CUBE卡_樂饗購", "CUBE卡_趣旅行", "CUBE卡_集精選", "CUBE卡_慶生月",
+             "CUBE卡_玩數位", "CUBE卡_樂饗購", "CUBE卡_趣旅行", "CUBE卡_集精選", "CUBE卡_慶生月"
              "國泰世界卡",
              "亞洲萬里通聯名卡",
              "台塑聯名卡",
