@@ -200,7 +200,7 @@ print("----------------------------------------------------------------")
 #電商平台
 with driver.session() as session:
     shopping_websites = ["蝦皮購物", "momo購物網", "PChome線上購物", "Yahoo奇摩購物中心", "小樹購",
-                         "Amazon", "淘寶", "天貓", "博客來"]
+                         "蝦皮商城", "Amazon", "淘寶", "天貓", "博客來"]
     for shop in shopping_websites:
         session.write_transaction(create_knowledge_point, "電商", "include", shop)
 print("----------------------------------------------------------------")
@@ -208,7 +208,7 @@ print("----------------------------------------------------------------")
 #支付方式
 with driver.session() as session:
     PayList = [ "歐付寶", "橘子支付", "ezPay簡單付", "街口支付", "全盈_PAY", "全支付" 
-                "PChome國際連", "一卡通Money", "悠遊付", "icash_Pay", "LINE_Pay", 
+                "PChome國際連", "一卡通Money", "悠遊付", "icash_Pay", "LinePay", 
                 "Apple_Pay", "Samsung_Pay", "Google_Pay", "台灣Pay", "玉山Wallet", 
                 "Hami_Pay", "OPEN錢包"]
     for pay in PayList:

@@ -31,6 +31,36 @@ def create_relationship(tx, from_node_name, to_node_names, relation_type):
 
 
 #-------------------------------以下為建立資料庫的 code------------------------------------------
+
+
+# 台塑聯名卡
+with driver.session() as session:
+    rewards = [
+        "LinePay", "台塑"
+    ]
+    session.write_transaction(create_relationship,"台塑聯名卡", rewards, "reward")
+
+# 現金回饋御璽卡
+with driver.session() as session:
+    rewards = [
+        "LinePay"
+    ]
+    session.write_transaction(create_relationship,"現金回饋御璽卡", rewards, "reward")
+
+# 世界卡
+with driver.session() as session:
+    rewards = [
+        "LinePay"
+    ]
+    session.write_transaction(create_relationship,"世界卡", rewards, "reward")
+
+# 蝦皮購物聯名卡
+with driver.session() as session:
+    rewards = [
+        "蝦皮購物", "蝦皮商城"
+    ]
+    session.write_transaction(create_relationship,"蝦皮購物聯名卡", rewards, "reward")
+
 # CUBE卡_慶生月
 with driver.session() as session:
     rewards = [
