@@ -17,7 +17,7 @@ def run_query(driver, query):
         return result.data()
 
 # 例子: 執行一個簡單的查詢
-query = "MATCH (n) RETURN n LIMIT 5"
+query = "MATCH (n) RETURN n LIMIT 100"
 
 # 執行查詢
 result = run_query(driver, query)
