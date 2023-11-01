@@ -1,0 +1,28 @@
+from neo4j import GraphDatabase
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# 建立與 Neo4j 的連接
+uri = "neo4j+s://cd122923.databases.neo4j.io"
+driver = GraphDatabase.driver(uri, auth=("neo4j", "XMvLaxouvDASwAcmMpcndl7W9j6pf6RpLs7ahPjjxQg"))
+
+# 定義一個查詢函式
+def run_query(tx, search_keyword):
+    query = (
+        "MATCH (source)-[:reward]->(destination {name: $search_keyword}) "
+        "RETURN source, destination"
+    )
+
+    result = tx.run(query, search_keyword=search_keyword)
+    return result.data()
+
+# 输入关键字
+search_keyword = "蝦皮購物"
+
+with driver.session() as session:
+    result = session.read_transaction(run_query, search_keyword)
+
+# 处理查询结果
+for record in result:
+    print(f"Source: {record['source']}, Destination: {record['destination']}")
+
