@@ -16,13 +16,15 @@ def run_query(tx, search_keyword):
     result = tx.run(query, search_keyword=search_keyword)
     return result.data()
 
-# 输入关键字
+# 輸入關鍵詞
 search_keyword = "蝦皮購物"
 
 with driver.session() as session:
     result = session.read_transaction(run_query, search_keyword)
 
-# 处理查询结果
+# 查詢結果
 for record in result:
     print(f"Source: {record['source']}, Destination: {record['destination']}")
 
+for record in result:
+    print("卡片：", record['source'])
