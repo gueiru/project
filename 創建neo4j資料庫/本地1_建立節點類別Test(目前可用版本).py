@@ -86,7 +86,7 @@ with driver.session() as session:
         "大地酒店", "台北國泰萬怡酒店", "台北六福萬怡酒店"
     ]
     for r in restaurants:
-        session.write_transacti1on(create_knowledge_point, "國內餐飲", "include", r)
+        session.write_transaction(create_knowledge_point, "國內餐飲", "include", r)
 print("----------------------------------------------------------------")
 
 # 台塑關係企業

@@ -6,22 +6,23 @@ import matplotlib.pyplot as plt
 uri = "neo4j+s://cd122923.databases.neo4j.io "
 driver = GraphDatabase.driver(uri, auth=("neo4j", "XMvLaxouvDASwAcmMpcndl7W9j6pf6RpLs7ahPjjxQg"))
 
-# 建立連線函式
-def connect_to_neo4j(uri, username, password):
-    return GraphDatabase.driver(uri, auth=(username, password))
-
 # 定義一個查詢函式
-def run_query(driver, query):
-    with driver.session() as session:
-        result = session.run(query)
-        return result.data()
+def run_query(tx, search_keyword):
+    query = (
+        "MATCH (c)-[:reward]->(r) "
+        "WHERE r CONTAINS $search_keyword "
+        "RETURN c, r"
+    )
 
-# 例子: 執行一個簡單的查詢
-query = "MATCH (n) RETURN n LIMIT 100"
+    result = tx.run(query, search_keyword=search_keyword)
+    return result.data()
 
-# 執行查詢
-result = run_query(driver, query)
+# 進行查詢
+search_keyword = "蝦皮購物"
 
-# 處理結果
+with driver.session() as session:
+    result = session.read_transaction(run_query, search_keyword)
+
+# 處理查詢結果
 for record in result:
-    print(record)
+    print(f"Card: {record['c']}, Reward: {record['r']}")
