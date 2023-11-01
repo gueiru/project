@@ -3,9 +3,9 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 #更改Neo4j Bolt連線設定
-uri = "bolt://localhost:7687"
-#這是林宜靜"本地"的neo4j密碼！！！
-driver = GraphDatabase.driver(uri, auth=("neo4j", "Test1022"))
+uri = "neo4j+s://cd122923.databases.neo4j.io "
+driver = GraphDatabase.driver(uri, auth=("neo4j", "XMvLaxouvDASwAcmMpcndl7W9j6pf6RpLs7ahPjjxQg"))
+
 
 def do_Cypher(tx, text):
     result = tx.run(text)
@@ -86,7 +86,7 @@ with driver.session() as session:
         "大地酒店", "台北國泰萬怡酒店", "台北六福萬怡酒店"
     ]
     for r in restaurants:
-        session.write_transacti1on(create_knowledge_point, "國內餐飲", "include", r)
+        session.write_transaction(create_knowledge_point, "國內餐飲", "include", r)
 print("----------------------------------------------------------------")
 
 # 台塑關係企業
