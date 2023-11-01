@@ -31,26 +31,51 @@ def create_relationship(tx, from_node_name, to_node_names, relation_type):
 
 
 #-------------------------------以下為建立資料庫的 code------------------------------------------
+# eTag聯名卡
+with driver.session() as session:
+    rewards = [
+        "馥蘭朵烏來渡假酒店", "馥蘭朵墾丁渡假酒店", "台南遠東香格里拉"
+    ]   
 
+# 雙幣白金卡
+with driver.session() as session:
+    rewards = [
+        "台北遠東香格里拉", "台南遠東香格里拉", "新北美食地標Mega50", "新竹國賓大飯店",
+        "花蓮理想大地", "馥蘭朵烏來渡假酒店", "馥蘭朵墾丁渡假酒店","馥森里山藝術生態園", "馥森阪治Trio"
+    ]        
+    session.write_transaction(create_relationship,"雙幣白金卡", rewards, "reward")
+
+# 雙幣商務鈦金卡
+with driver.session() as session:
+    rewards = [
+        "台北遠東香格里拉", "台南遠東香格里拉", "新北美食地標Mega50", "新竹國賓大飯店",
+        "花蓮理想大地", "馥蘭朵烏來渡假酒店", "馥蘭朵墾丁渡假酒店","馥森里山藝術生態園", "馥森阪治Trio"
+    ]        
+    session.write_transaction(create_relationship,"雙幣商務鈦金卡", rewards, "reward")
 
 # 台塑聯名卡
 with driver.session() as session:
     rewards = [
-        "LinePay", "台塑"
+        "台塑生醫", "長庚生技", "台塑購物網", "台塑網旅行社"
     ]
     session.write_transaction(create_relationship,"台塑聯名卡", rewards, "reward")
 
 # 現金回饋御璽卡
 with driver.session() as session:
     rewards = [
-        "LinePay"
+        "台北遠東香格里拉", "台南遠東香格里拉", "新竹國賓大飯店", "馥蘭朵烏來渡假酒店", "馥蘭朵墾丁渡假酒店",
+        "馥森里山藝術生態園", "馥森阪治Trio"
     ]
     session.write_transaction(create_relationship,"現金回饋御璽卡", rewards, "reward")
 
 # 世界卡
 with driver.session() as session:
     rewards = [
-        "LinePay"
+        "台北萬豪酒店", "君悅酒店", "台北遠東香格里拉", "台南遠東香格里拉", "中山招待所",
+        "高雄萬豪酒店", "台北寒舍艾美酒店", "台北美福大飯店", "台北晶華酒店", "文華東方酒店",
+        "維多麗亞酒店", "漢來名人坊", "瑞穗天合國際觀光酒店", "JR東日本大飯店", "台北美食地標Mega50",
+        "新北美食地標Mega50", "新竹國賓大飯店", "林酒店", "高雄林皇宮", "台中長榮桂冠酒店",
+        "大地酒店", "台北國泰萬怡酒店", "台北六福萬怡酒店"
     ]
     session.write_transaction(create_relationship,"世界卡", rewards, "reward")
 
