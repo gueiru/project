@@ -28,3 +28,5 @@ for record in result:
 
 for record in result:
     print("卡片：", record['source'])
+    
+driver.close()
