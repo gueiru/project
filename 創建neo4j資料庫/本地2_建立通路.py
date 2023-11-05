@@ -3,9 +3,9 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 #更改Neo4j Bolt連線設定
-uri = "neo4j+s://cd122923.databases.neo4j.io "
-driver = GraphDatabase.driver(uri, auth=("neo4j", "XMvLaxouvDASwAcmMpcndl7W9j6pf6RpLs7ahPjjxQg"))
-
+uri = "bolt://localhost:7687"
+#這是林宜靜"本地"的neo4j密碼！！！
+driver = GraphDatabase.driver(uri, auth=("neo4j", "Test1022"))
 
 def do_Cypher(tx, text):
     result = tx.run(text)
@@ -246,51 +246,4 @@ with driver.session() as session:
         session.write_transaction(create_knowledge_point, "交通", "include", transportation)
 print("----------------------------------------------------------------")
 
-# 國泰卡片
-with driver.session() as session:
-    card12 = ["蝦皮購物聯名卡", 
-             "長榮航空聯名卡", 
-             "CUBE卡_玩數位", "CUBE卡_樂饗購", "CUBE卡_趣旅行", "CUBE卡_集精選", "CUBE卡_慶生月",
-             "國泰世界卡",
-             "亞洲萬里通聯名卡",
-             "台塑聯名卡",
-             "雙幣卡",
-             "eTag聯名卡"]
-    for card in card12:
-        session.write_transaction(create_knowledge_point, "國泰信用卡", "include", card)
-print("----------------------------------------------------------------")
-
-# 富邦卡片
-with driver.session() as session:
-    card20 = [  "富邦J卡", "富邦IMPERIAL尊御世界卡", "富邦數位生活卡",
-                "富邦鑽保卡", "富邦財神系列卡", "Open_Possible聯名卡",
-                "富邦世界卡", "富邦無限卡", "富邦富利生活系列卡", "富邦鈦金卡",
-                "富邦銀行卡", "富邦Costco聯名卡", "momo卡", "富邦悍將悠遊聯名卡",
-                "台茂聯名卡", "廣三SOGO聯名卡", "采盟聯名卡",
-                "DHC聯名卡", "福華聯名卡", "麗嬰房聯名卡"]
-    for card in card20:
-        session.write_transaction(create_knowledge_point, "富邦信用卡", "include", card)
-print("----------------------------------------------------------------")
-
-# 中信卡片
-with driver.session() as session:
-    card49 = [  "Agoda聯名卡", "Mitsui_Shopping_Park_LaLaport聯名卡", "ALL_ME卡",
-                "LINE_Pay信用卡", "英雄聯盟信用卡", "中油聯名卡",
-                "中信商旅鈦金卡", "TAIPEI_101聯名卡_尊榮鼎極卡", "TAIPEI_101聯名卡_新鼎極卡",
-                "TAIPEI_101聯名卡_新御璽卡", "和泰聯名卡","中國信託鼎極卡_無限卡_極緻卡",
-                "中國信託鼎極卡_世界卡", "中信紅利御璽卡","中信紅利晶緻卡",
-                "中信現金回饋御璽卡","中信現金回饋鈦金卡","中信紅利卡",
-                "寰遊美國運通卡","Super_Life_VISA卡", "中信兄弟聯名卡_鼎極卡",
-                "中信兄弟聯名卡_御璽_鈦金卡","中信兄弟聯名卡_白金卡","中信兄弟聯名卡_不限卡別",
-                "LEXUS聯名卡","中信商務卡_雙幣商務卡","中華電信聯名卡",
-                "漢神百貨聯名卡_無限卡","漢神百貨聯名卡_世界卡", "漢神百貨聯名卡_御璽卡",
-                "漢神百貨聯名卡_晶緻卡", "漢神百貨聯名卡_鈦金卡","Global_Mall聯名卡_無限卡",
-                "Global_Mall聯名卡_御璽卡","Global_Mall聯名卡_白金卡","秀泰聯名卡_晶緻卡",
-                "秀泰聯名卡_白金卡","大葉髙島屋百貨聯名卡_世界卡", "大葉髙島屋百貨聯名卡_無限卡",
-                "大葉髙島屋百貨聯名卡_鈦金卡","大葉髙島屋百貨聯名卡_御璽卡_晶緻卡","大葉髙島屋百貨聯名卡_白金卡",
-                "南紡購物中心聯名卡_鼎極無限卡","南紡購物中心聯名卡_御璽卡","勤美天地聯名卡_御璽卡_晶緻卡",   
-                "勤美天地聯名卡_白金卡","MUJI無印良品聯名卡", "酷玩卡",
-                "統一企業認同卡"]
-    for card in card49:
-        session.write_transaction(create_knowledge_point, "中信信用卡", "include", card)
 print("------------------done------------------")
