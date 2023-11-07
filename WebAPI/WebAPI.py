@@ -1,5 +1,5 @@
 # Flask API
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from email.mime.multipart import MIMEMultipart
@@ -7,6 +7,8 @@ from email.mime.text import MIMEText
 import random
 import smtplib
 import hashlib
+from neo4j import GraphDatabase
+import networkx as nx
 
 
 app = Flask(__name__)
@@ -65,6 +67,14 @@ def register():
 
   return jsonify({'message': 'User registered successfully','userinf':{'username': username,'email': email,'token': 'token'}}), 201
 
+@app.route('/add_bank', methods=['POST'])
+def add_bank():
+  data = request.json
+  for i in range(len(data)):
+    print(data[i]['bank_id'] + ' ' + str(data[i]['ischeck']))
+
+  return jsonify({'message': 'Add bank successfully'}),201
+
 @app.route('/forgetpw', methods=['POST'])
 def forgetpw():
   email = request.json['email']
@@ -93,7 +103,7 @@ def forgetpw():
     with smtplib.SMTP_SSL(host="smtp.gmail.com", port=465) as smtp:  # 設定SMTP伺服器
       try:
         smtp.ehlo()  # 驗證SMTP伺服器
-        smtp.login("ucard112408@gmail.com", "這是密碼要輸入")  # 登入寄件者gmail**********************************
+        smtp.login("ucard112408@gmail.com", "email密碼email密碼")  # 登入寄件者gmail   #####################email密碼
         smtp.send_message(content)  # 寄送郵件
         smtp.close()
       except Exception as e:
@@ -131,5 +141,38 @@ def getbank():
     serialized_banks.append(serialized_bank)
   return jsonify({'bank':serialized_banks,'message': 'getbank successfully'}),203
 
+@app.route('/getimg', methods=['GET'])
+def getimg():
+  imageurl = '/img/' + request.args.get('imageurl')  + '.webp'
+  return send_file(imageurl, mimetype='image/webp')
+
+@app.route('/recommend', methods=['GET'])
+def recommend():
+
+  uri = "neo4j+s://cd122923.databases.neo4j.io"
+  driver = GraphDatabase.driver(uri, auth=("neo4j", "neo4j密碼neo4j密碼")) #####################neo4j密碼
+
+  # 定義一個查詢函式
+  def run_query(driver, query):
+    with driver.session() as session:
+      result = session.run(query)
+      return result.data()
+
+  # 例子: 執行一個簡單的查詢
+  query = "MATCH (n:超商) RETURN n LIMIT 100"
+
+  # 執行查詢
+  result = run_query(driver, query)
+
+  result_Array = []
+  # 處理結果
+  for record in result:
+    print(record['n']['name'])
+    result_Array.append(record['n']['name'])
+
+  return jsonify({'card':result_Array}),203
+
+
+
 if __name__ == '__main__':
-  app.run(debug='true',host='192.168.50.151')
+  app.run(debug='true',host='192.168.50.151') #192.168.50.151、192.168.176.197
