@@ -35,6 +35,22 @@ class banks(db.Model):
     self.id = bank_id
     self.name = bank_name
 
+class cards(db.Model):
+  bank_id = db.Column(db.String(3), primary_key=True)
+  category = db.Column(db.String(1), primary_key=True)
+  card_id = db.Column(db.String(3), primary_key=True)
+  card_name = db.Column(db.String(20))
+  feedback_type = db.Column(db.String(1))
+  link = db.Column(db.String(120))
+
+  def __init__(self, bank_id, category, card_id, card_name, feedback_type, link):
+    self.bank_id = bank_id
+    self.category = category
+    self.card_id = card_id
+    self.card_name = card_name
+    self.feedback_type = feedback_type
+    self.link = link
+
 @app.route('/login', methods=['POST'])
 def login():
   email = request.json['email']
@@ -103,7 +119,7 @@ def forgetpw():
     with smtplib.SMTP_SSL(host="smtp.gmail.com", port=465) as smtp:  # 設定SMTP伺服器
       try:
         smtp.ehlo()  # 驗證SMTP伺服器
-        smtp.login("ucard112408@gmail.com", "email密碼email密碼")  # 登入寄件者gmail   #####################email密碼
+        smtp.login("ucard112408@gmail.com", "***************")  # 登入寄件者gmail         ######################密碼密碼
         smtp.send_message(content)  # 寄送郵件
         smtp.close()
       except Exception as e:
@@ -139,7 +155,29 @@ def getbank():
       'bank_name': bank.bank_name
     }
     serialized_banks.append(serialized_bank)
-  return jsonify({'bank':serialized_banks,'message': 'getbank successfully'}),203
+  return jsonify(serialized_banks),203
+
+@app.route('/getcard', methods=['POST'])
+def getcard():
+  bank_id = request.json['bank_id']
+  cardlist = cards.query.filter_by(bank_id=bank_id).all()
+  # 陣列化資料
+  serialized_cards_visa = []
+  serialized_cards_ms = []
+  serialized_cards_jcb = []
+  for card in cardlist:
+    serialized_card = {
+      'card_id': card.bank_id + card.category + card.card_id,
+      'bank_name': card.bank_name
+    }
+    match(card.category):
+      case 0:
+        serialized_cards_visa.append(serialized_card)
+      case 1:
+        serialized_cards_ms.append(serialized_card)
+      case 2:
+        serialized_cards_jcb.append(serialized_card)
+  return jsonify({'visa':serialized_cards_visa, 'ms':serialized_cards_ms, 'jcb':serialized_cards_jcb}),203
 
 @app.route('/getimg', methods=['GET'])
 def getimg():
@@ -148,9 +186,8 @@ def getimg():
 
 @app.route('/recommend', methods=['GET'])
 def recommend():
-
   uri = "neo4j+s://cd122923.databases.neo4j.io"
-  driver = GraphDatabase.driver(uri, auth=("neo4j", "neo4j密碼neo4j密碼")) #####################neo4j密碼
+  driver = GraphDatabase.driver(uri, auth=("neo4j", "************************")) ######################密碼密碼
 
   # 定義一個查詢函式
   def run_query(driver, query):
