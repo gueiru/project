@@ -120,7 +120,8 @@ print("----------------------------------------------------------------")
 # 超市
 with driver.session() as session:
     markets = [
-        "家樂福", "全聯福利中心"
+        "家樂福", "全聯福利中心", "大潤發", "大買家", "愛買",
+        "喜互惠", "楓康", "Mia_Cbon"
     ]
     for m in markets:
         session.write_transaction(create_knowledge_point,"超市", "include", m)

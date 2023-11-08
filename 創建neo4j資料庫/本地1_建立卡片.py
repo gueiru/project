@@ -110,8 +110,6 @@ with driver.session() as session:
         "大葉髙島屋百貨聯名卡_無限卡", "SuperLife_VISA卡", "中信商務卡_雙幣商務卡", "和泰聯名卡",
         "中華電信聯名卡_無限卡", "中信兄弟聯名卡_鈦金卡", "中華電信聯名卡_鈦金卡"
     ]
-    
-    
     for card in card51:
         session.write_transaction(create_knowledge_point, "中信信用卡", "include", card)
 print("------------------done------------------")
