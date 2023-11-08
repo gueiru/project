@@ -107,7 +107,7 @@ with driver.session() as session:
 with driver.session() as session:
     rewards = [
         "家樂福",
-        "台灣中油-直營店",
+        "中油",
         "高鐵",
         "SevenEleven", "FamilyMart", "全聯福利中心"
         "麥當勞", "星巴克",
