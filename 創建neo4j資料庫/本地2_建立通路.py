@@ -69,15 +69,17 @@ def create_knowledge_point(tx, label, relation, obj):
 # 國內餐飲
 with driver.session() as session:
     restaurants = [
-        "王品牛排", "TASTy西堤牛排", "丰龢和牛涮", "肉次方燒肉放題", "Oh_my原燒",
+        "王品牛排", "tasty西堤牛排", "丰龢和牛涮", "肉次方燒肉放題", "oh_my原燒",
         "和牛涮", "尬鍋台式潮鍋", "聚北海道昆布鍋", "石二鍋", "青花驕",
         "_12MINI", "陶板屋", "藝奇和牛岩板焼", "夏慕尼新香榭鐵板燒", "品田牧場",
-        "享鴨", "hot7鐵板燒", "莆田", "築間幸福鍋物", "燒肉Smile",
+        "享鴨", "hot7鐵板燒", "莆田", "築間幸福鍋物", "燒肉smile",
         "有之和牛鍋物放題", "本格和牛燒肉放題", "繪馬別邸", "瓦城泰國料理", 
         "非常泰概念餐坊", "_1010湘", "大心新泰式麵食", "時時香RICE_BAR", "YABI_KITCHEN", 
         "月月THAI_BBQ", "樂子The_Dinner", "茹絲葵經典牛排館", "屋馬燒肉", "solo_pasta義大利麵", 
         "俺達の肉屋_日本和牛專門店", "鹽之華法式餐廳", "廚房有雞花雕雞", "碳佐麻里精品燒肉", 
         "与玥樓頂級粵菜餐廳", "RAW", "山海樓", "金蓬萊遵古台菜餐廳", "老新台菜", 
+        "欣葉台菜", "欣葉小聚", "欣葉鐘菜", "NAGOMI和食饗宴", "欣葉日本料理",
+        "欣葉SHABUSHABU", "咖哩匠", "欣葉生活廚房", "paparich金爸爸", "唐點小聚",
         "麥當勞", "星巴克",
         "台北萬豪酒店", "君悅酒店", "台北遠東香格里拉", "台南遠東香格里拉", "中山招待所",
         "高雄萬豪酒店", "台北寒舍艾美酒店", "台北美福大飯店", "台北晶華酒店", "文華東方酒店",
@@ -85,36 +87,64 @@ with driver.session() as session:
         "新北美食地標Mega50", "新竹國賓大飯店", "林酒店", "高雄林皇宮", "台中長榮桂冠酒店",
         "大地酒店", "台北國泰萬怡酒店", "台北六福萬怡酒店"
     ]
-    for r in restaurants:
-        session.write_transaction(create_knowledge_point, "國內餐飲", "include", r)
+    for restaurant in restaurants:
+        session.write_transaction(create_knowledge_point, "國內餐飲", "include", restaurant)
+print("----------------------------------------------------------------")
+
+# 國外
+with driver.session() as session:
+    books = [
+        "日本", "韓國", "新加坡", "泰國", "國外餐飲"
+    ]
+    for book in books:
+        session.write_transaction(create_knowledge_point, "書局", "include", book)
+print("----------------------------------------------------------------")
+
+# 書店
+with driver.session() as session:
+    books = [
+        "金石堂", "金玉堂", "誠品", "墊腳石", "紀伊國屋",
+        "法雅客", "博客來", "敦煌書局", "三民書局"
+    ]
+    for book in books:
+        session.write_transaction(create_knowledge_point, "書局", "include", book)
+print("----------------------------------------------------------------")
+
+#加油站
+with driver.session() as session:
+    Gas = [
+        "中油", "全國加油站", "台亞", "西歐加油站", "速邁樂加油站"
+    ]
+    for gas in Gas:
+        session.write_transaction(create_knowledge_point, "加油站", "include", gas)
 print("----------------------------------------------------------------")
 
 # 台塑關係企業
 with driver.session() as session:
-    relation = [
+    relations = [
         "台塑生醫", "長庚生技", "台塑購物網", "台塑網旅行社"
     ]
-    for r in relation:
-        session.write_transaction(create_knowledge_point, "台塑關係企業", "include", r)
+    for relation in relations:
+        session.write_transaction(create_knowledge_point, "台塑關係企業", "include", relation)
 
 # 娛樂
 with driver.session() as session:
-    ent = [
+    entertaments = [
         "錢櫃KTV", "好樂迪KTV", "星聚點KTV", "享溫馨KTV", 
         
         "國賓影城", "威秀影城", "ShowTimes秀泰影城"
     ]
-    for e in ent:
-        session.write_transaction(create_knowledge_point,"娛樂", "include", e)
+    for ent in entertaments:
+        session.write_transaction(create_knowledge_point,"娛樂", "include", ent)
 print("----------------------------------------------------------------")
 
 # 停車場
 with driver.session() as session:
-    park = [
+    parks = [
         "城市車旅", "嘟嘟房"
     ]
-    for p in park:
-        session.write_transaction(create_knowledge_point,"停車場", "include", p)
+    for park in parks:
+        session.write_transaction(create_knowledge_point,"停車場", "include", park)
 print("----------------------------------------------------------------")
 
 # 超市
@@ -127,14 +157,23 @@ with driver.session() as session:
         session.write_transaction(create_knowledge_point,"超市", "include", m)
 print("----------------------------------------------------------------")
 
-#飯店住宿
+# 連鎖飯店
 with driver.session() as session:
     hotels = [
         "台北遠東香格里拉", "台南遠東香格里拉", "新竹國賓大飯店", "馥蘭朵烏來渡假酒店", "馥蘭朵墾丁渡假酒店",
         "馥森里山藝術生態園", "馥森阪治Trio", "花蓮理想大地"
     ]
     for h in hotels:
-        session.write_transaction(create_knowledge_point, "飯店住宿", "include", h)
+        session.write_transaction(create_knowledge_point, "連鎖飯店", "include", h)
+print("----------------------------------------------------------------")
+
+# 住宿
+with driver.session() as session:
+    hotels = [
+        "民宿", "青年旅館", "連鎖飯店"
+    ]
+    for h in hotels:
+        session.write_transaction(create_knowledge_point, "住宿", "include", h)
 print("----------------------------------------------------------------")
 
 # 旅行社
@@ -178,14 +217,23 @@ with driver.session() as session:
     for shop in shopping_centers:
         session.write_transaction(create_knowledge_point, "百貨公司", "include", shop)
 print("----------------------------------------------------------------")
-       
+
+# 電信
+with driver.session() as session:
+    phones = [
+        "台灣大哥大", "中華電信", "遠傳", "台灣之星", "亞太"
+    ]
+    for p in phones:
+        session.write_transaction(create_knowledge_point, "電信", "include", p)
+print("----------------------------------------------------------------")
+   
 # 國內藥妝
 with driver.session() as session:
     pharmacies = [
-        "康是美", "寶雅", "屈臣氏", "日藥本舖", "Tomod_s", "松本清"
+        "康是美", "寶雅", "屈臣氏", "日藥本舖", "tomod_s", "松本清"
     ]
     for p in pharmacies:
-        session.write_transaction(create_knowledge_point, "國內餐飲", "include", p)
+        session.write_transaction(create_knowledge_point, "國內藥妝", "include", p)
 print("----------------------------------------------------------------")
 
 # 外送平台
@@ -214,14 +262,18 @@ with driver.session() as session:
         session.write_transaction(create_knowledge_point, "串流平台", "include", music)
 print("----------------------------------------------------------------")
 
-#電商平台
+#電商購物
 with driver.session() as session:
     shopping_websites = [
-        "蝦皮購物", "momo購物網", "PChome線上購物", "Yahoo奇摩購物中心", "小樹購",
-        "蝦皮商城", "Amazon", "淘寶", "天貓", "博客來"
+        "蝦皮購物", "momo", "pchome線上購物", "yahoo奇摩購物中心", "小樹購",
+        "蝦皮商城", "amazon", "淘寶", "天貓", "博客來",
+        "超級商城", "myfone購物", "udn買東西", "pchome商店街",
+        "樂天", "friday購物", "博客來", "生活市集", "yahoo超級商城",
+        "松果購物", "citiesocial找好東西", "zalora", "shopback", "yahoo拍賣",
+        "東森", "森森", "viva"
     ]
     for shop in shopping_websites:
-        session.write_transaction(create_knowledge_point, "電商", "include", shop)
+        session.write_transaction(create_knowledge_point, "電商購物", "include", shop)
 print("----------------------------------------------------------------")
 
 #支付方式
@@ -238,13 +290,20 @@ print("----------------------------------------------------------------")
       
 #交通
 with driver.session() as session:
-    Traffic_List = ["高鐵", "計程車", "公車", "台鐵", "捷運", "飛機"
-					"Uber", "LINE_TAXI", "yoxi", "台灣大車隊", "大都會計程車",
-					"和運租車", "iRent", "格上租車", "中租租車", "AVIS租車",
-                    "台灣中油_直營店"
-     ]
+    Traffic_List = [
+        "高鐵", "計程車", "公車", "台鐵", "捷運",
+        "Uber", "LINE_TAXI", "yoxi", "台灣大車隊", "大都會計程車",
+        "和運租車", "iRent", "格上租車", "中租租車", "AVIS租車",
+    ]
     for transportation in Traffic_List:
         session.write_transaction(create_knowledge_point, "交通", "include", transportation)
 print("----------------------------------------------------------------")
 
+#航空公司
+with driver.session() as session:
+    Airlines = [
+        "虎航", "長榮航空", "華航", "星宇", "立榮", "華信"
+    ]
+    for A in Airlines:
+        session.write_transaction(create_knowledge_point, "航空公司", "include", A)
 print("------------------done------------------")
