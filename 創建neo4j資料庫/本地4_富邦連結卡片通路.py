@@ -31,11 +31,12 @@ def create_relationship(tx, from_node_name, to_node_names, relation_type):
 
 
 #-------------------------------以下為建立資料庫的 code------------------------------------------
-# eTag聯名卡
+# 富邦富利生活系列卡
 with driver.session() as session:
     rewards = [
-        "馥蘭朵烏來渡假酒店", "馥蘭朵墾丁渡假酒店", "台南遠東香格里拉"
-    ]   
+        "百貨公司", "超市", "國內餐飲", "加油站", "書局",
+        "旅行社", "飛機"
+    ]
 
 
 print("-------------done----------")
