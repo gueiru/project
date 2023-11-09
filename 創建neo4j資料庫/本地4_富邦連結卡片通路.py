@@ -35,8 +35,22 @@ def create_relationship(tx, from_node_name, to_node_names, relation_type):
 with driver.session() as session:
     rewards = [
         "百貨公司", "超市", "國內餐飲", "加油站", "書局",
-        "旅行社", "飛機"
+        "旅行社",
+        "虎航", "長榮航空", "華航", "星宇", "立榮",  "華信"
     ]
+    session.write_transaction(create_relationship, "富邦富利生活系列卡", rewards, "reward")
 
+# 富邦數位生活卡
+with driver.session() as session:
+    rewards = [
+        "yahoo奇摩購物中心", "yahoo超級商城", "yahoo拍賣", "pchome線上購物",
+        "pchome商店街", "淘寶", "天貓", "蝦皮購物",
+        "myfone購物", "udn買東西", "樂天", "friday購物", "博客來", "生活市集",
+        "松果購物", "citiesocial找好東西", "zalora", "shopback",
+        "東森", "森森", "viva", "momo",
+        
+        "台灣大哥大", "中華電信", "遠傳", "台灣之星", "亞太"
+    ]
+    session.write_transaction(create_relationship, "富邦數位生活卡", rewards, "reward")
 
 print("-------------done----------")
