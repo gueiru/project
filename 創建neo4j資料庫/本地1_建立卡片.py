@@ -73,7 +73,7 @@ with driver.session() as session:
     "CUBE卡_集精選", "雙幣商務鈦金卡", "CUBE卡_慶生月", "CUBE卡_趣旅行"
     ]
     for card in card12:
-        session.write_transaction(create_knowledge_point, "國泰信用卡", "include", card)
+        session.write_transaction(create_knowledge_point, "card", "include", card)
 print("----------------------------------------------------------------")
 
 # 富邦卡片
@@ -86,7 +86,7 @@ with driver.session() as session:
         "momo卡", "富邦J卡", "富邦鑽保卡"
     ]
     for card in card23:
-        session.write_transaction(create_knowledge_point, "富邦信用卡", "include", card)
+        session.write_transaction(create_knowledge_point, "card", "include", card)
 print("----------------------------------------------------------------")
 
 # 中信卡片
@@ -106,5 +106,5 @@ with driver.session() as session:
     "漢神百貨聯名卡_白金卡", "中信紅利晶緻卡", "TAIPEI101聯名卡_尊榮鼎極卡", "LEXUS聯名卡", "GlobalMall聯名卡_御璽卡"
     ]
     for card in card60:
-        session.write_transaction(create_knowledge_point, "中信信用卡", "include", card)
+        session.write_transaction(create_knowledge_point, "card", "include", card)
 print("------------------done------------------")

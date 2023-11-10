@@ -18,7 +18,7 @@ def create_relationship(tx, from_node_name, to_node_names, relation_type):
     from_node_exists = tx.run(check_from_node_query, from_node_name=from_node_name)
 
     if not from_node_exists.single():
-        print(f"！！！！！！Node '{from_node_name}' does not exist")
+        print(f"！！！！！！Node '{from_node_name}' does not exist！！！！！！")
         return
 
     for to_node_name in to_node_names:
@@ -27,7 +27,7 @@ def create_relationship(tx, from_node_name, to_node_names, relation_type):
         to_node_exists = tx.run(check_to_node_query, to_node_name=to_node_name)
 
         if not to_node_exists.single():
-            print(f"！！！！！Node '{to_node_name}' does not exist")
+            print(f"！！！！！Node '{to_node_name}' does not exist！！！！！")
         else:
             # 如果節點存在，則建立關聯
             merge_query = (
@@ -59,17 +59,67 @@ def create_relationship(tx, from_node_name, to_node_names, relation_type):
 # 台茂聯名卡
 # 廣三SOGO聯名卡
 # 富邦Costco聯名卡
+
+
 # OpenPossible聯名卡
+with driver.session() as session:
+    rewards = [
+        "台灣大哥大", "MyVideo", "凱擘", "App_Store", "Google_Play",
+        "PlayStation", "Nintendo", "Steam",
+        "SevenEleven", "全家FamilyMart",
+        "中油", "全國加油站", "台亞", "西歐加油站", "速邁樂加油站",
+        "保費", 
+    ]
+    session.write_transaction(create_relationship, "OpenPossible聯名卡", rewards, "reward")
+
 # 麗嬰房聯名卡
+with driver.session() as session:
+    rewards = [
+        "麗嬰房"
+    ]
+    session.write_transaction(create_relationship, "麗嬰房聯名卡", rewards, "reward")
+
 # 廣三SOGO悠遊聯名卡
-# 富邦銀行卡        
+with driver.session() as session:
+    rewards = [
+        "廣三SOGO"
+    ]
+    session.write_transaction(create_relationship, "廣三SOGO悠遊聯名卡", rewards, "reward")
+
+# 富邦銀行卡
+with driver.session() as session:
+    rewards = [
+        "嘟嘟房", "台灣聯通"
+    ]
+    session.write_transaction(create_relationship, "富邦銀行卡", rewards, "reward")
+    
 # 富邦財神系列卡
-# 富邦無限卡
-# 福華聯名卡
-# DHC聯名卡
 with driver.session() as session:
     rewards = [
         
+    ]
+    session.write_transaction(create_relationship, "富邦財神系列卡", rewards, "reward")
+
+# 富邦無限卡
+with driver.session() as session:
+    rewards = [
+        
+    ]
+    session.write_transaction(create_relationship, "富邦無限卡", rewards, "reward")
+
+# 福華聯名卡
+with driver.session() as session:
+    rewards = [
+        "台北福華大飯店", "新竹福華大飯店", "台中福華大飯店",
+        "溪頭福華渡假飯店", "高雄福華大飯店", "石門水庫福華渡假飯店",
+        "墾丁福華渡假飯店"
+    ]
+    session.write_transaction(create_relationship, "福華聯名卡", rewards, "reward")
+    
+# DHC聯名卡
+with driver.session() as session:
+    rewards = [
+        "DHC"
     ]
     session.write_transaction(create_relationship, "DHC聯名卡", rewards, "reward")
 

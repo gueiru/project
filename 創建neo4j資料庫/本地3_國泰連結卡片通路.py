@@ -28,6 +28,7 @@ def create_relationship(tx, from_node_name, to_node_names, relation_type):
 
         if not to_node_exists.single():
             print(f"！！！！！Node '{to_node_name}' does not exist")
+            break
         else:
             # 如果節點存在，則建立關聯
             merge_query = (
@@ -99,7 +100,7 @@ with driver.session() as session:
         "家樂福",
         "中油",
         "高鐵",
-        "SevenEleven", "FamilyMart", "全聯福利中心",
+        "SevenEleven", "全家FamilyMart", "全聯福利中心",
         "麥當勞", "星巴克",
         "foodomo",
         "遠東SOGO百貨",

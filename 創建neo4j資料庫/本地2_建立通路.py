@@ -65,6 +65,24 @@ def create_knowledge_point(tx, label, relation, obj):
     print(command)
 
 #-------------------------------以下為建立資料庫的code------------------------------------------
+# 費用
+with driver.session() as session:
+    taxs = [
+        "保費", "所得稅", "地價稅", "牌照稅", "房屋稅", "燃料稅"
+    ]
+    for tax in taxs:
+        session.write_transaction(create_knowledge_point, "費用", "include", tax)
+print("----------------------------------------------------------------")
+
+
+# 嬰幼兒用品
+with driver.session() as session:
+    babys = [
+        "小獅王辛巴", "MARURU", "cipu喜舖", "麗嬰房"
+    ]
+    for baby in babys:
+        session.write_transaction(create_knowledge_point, "嬰幼兒用品", "include", baby)
+print("----------------------------------------------------------------")
 
 # 國內餐飲
 with driver.session() as session:
@@ -119,6 +137,14 @@ with driver.session() as session:
         session.write_transaction(create_knowledge_point, "加油站", "include", gas)
 print("----------------------------------------------------------------")
 
+# 電動機車
+with driver.session() as session:
+    motorcycles = [
+        "Gogoro", "USPACE", "UDRIVE", "WeMo", "iRENT", "GoShare"
+    ]
+    for motor in motorcycles:
+        session.write_transaction(create_knowledge_point, "電動機車", "include", motor)
+
 # 台塑關係企業
 with driver.session() as session:
     relations = [
@@ -141,7 +167,7 @@ print("----------------------------------------------------------------")
 # 停車場
 with driver.session() as session:
     parks = [
-        "城市車旅", "嘟嘟房"
+        "城市車旅", "嘟嘟房", "台灣聯通"
     ]
     for park in parks:
         session.write_transaction(create_knowledge_point,"停車場", "include", park)
@@ -230,7 +256,7 @@ print("----------------------------------------------------------------")
 # 國內藥妝
 with driver.session() as session:
     pharmacies = [
-        "康是美", "寶雅", "屈臣氏", "日藥本舖", "tomod_s", "松本清"
+        "康是美", "寶雅", "屈臣氏", "日藥本舖", "tomod_s", "松本清", "DHC"
     ]
     for p in pharmacies:
         session.write_transaction(create_knowledge_point, "國內藥妝", "include", p)
@@ -247,7 +273,7 @@ print("----------------------------------------------------------------")
 
 #超商
 with driver.session() as session:
-    convenience_store = ["SevenEleven", "FamilyMart", "萊爾富", "OK", "美廉社"]
+    convenience_store = ["SevenEleven", "全家FamilyMart", "萊爾富", "OK", "美廉社"]
     for cv in convenience_store:
         session.write_transaction(create_knowledge_point, "超商", "include", cv)
 print("----------------------------------------------------------------")
@@ -256,10 +282,12 @@ print("----------------------------------------------------------------")
 with driver.session() as session:
     musics = [
         "Google_Play", "Disney_Plus", "Netflix", "Spotify", "KKBOX", "KKTV",
-        "App_Store", "Apple_Music", "iCloud"
+        "App_Store", "Apple_Music", "iCloud", "MyVideo", "friday影音",
+        "凱擘", "PlayStation", "Nintendo", "Steam"
+        
     ]
     for music in musics:
-        session.write_transaction(create_knowledge_point, "串流平台", "include", music)
+        session.write_transaction(create_knowledge_point, "影音遊戲", "include", music)
 print("----------------------------------------------------------------")
 
 #電商購物
