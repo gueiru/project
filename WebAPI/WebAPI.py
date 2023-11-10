@@ -1,5 +1,5 @@
 # Flask API
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify #, send_file
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from email.mime.multipart import MIMEMultipart
@@ -9,11 +9,13 @@ import smtplib
 import hashlib
 from neo4j import GraphDatabase
 import networkx as nx
+import jwt
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://test:test@localhost:3306/ucard'
+app.config['JWT_SECRET_KEY'] = 'SECRET_KEY' #這裡要更改成想要的密碼
 db = SQLAlchemy(app)
 bcrypt = Bcrypt()
 
@@ -51,6 +53,18 @@ class cards(db.Model):
     self.feedback_type = feedback_type
     self.link = link
 
+class user_banklist(db.Model):
+  user_id = db.Column(db.Integer, primary_key=True)
+  bank_id = db.Column(db.String(3))
+  auto_debit = db.Column(db.Boolean)
+  e_bill = db.Column(db.Boolean)
+
+  def __init__(self, user_id, bank_id, auto_debit, e_bill):
+    self.user_id = user_id
+    self.bank_id = bank_id
+    self.auto_debit = auto_debit
+    self.e_bill = e_bill
+
 @app.route('/login', methods=['POST'])
 def login():
   email = request.json['email']
@@ -64,7 +78,9 @@ def login():
     return jsonify({'message': '密碼錯誤'}), 401
   # 登入成功通知
   username = email[:email.index("@")]
-  return jsonify({'message': 'User logged in successfully','userinf':{'username': username,'email': email,'token': 'token'}}), 200
+  usertoken = jwt.encode({'user_id': user.user_id}, app.config['JWT_SECRET_KEY'], algorithm='HS256')
+
+  return jsonify({'message': 'User logged in successfully','userinf':{'username': username,'email': email,'token': usertoken}}), 200
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -80,16 +96,10 @@ def register():
   db.session.add(new_user)
   db.session.commit()
   username = email[:email.index("@")]
+  user_id = users.query.filter_by(email=email).first().user_id
+  usertoken = jwt.encode({'user_id': user_id}, app.config['JWT_SECRET_KEY'], algorithm='HS256')
 
-  return jsonify({'message': 'User registered successfully','userinf':{'username': username,'email': email,'token': 'token'}}), 201
-
-@app.route('/add_bank', methods=['POST'])
-def add_bank():
-  data = request.json
-  for i in range(len(data)):
-    print(data[i]['bank_id'] + ' ' + str(data[i]['ischeck']))
-
-  return jsonify({'message': 'Add bank successfully'}),201
+  return jsonify({'message': 'User registered successfully','userinf':{'username': username,'email': email,'token': usertoken}}), 201
 
 @app.route('/forgetpw', methods=['POST'])
 def forgetpw():
@@ -119,7 +129,7 @@ def forgetpw():
     with smtplib.SMTP_SSL(host="smtp.gmail.com", port=465) as smtp:  # 設定SMTP伺服器
       try:
         smtp.ehlo()  # 驗證SMTP伺服器
-        smtp.login("ucard112408@gmail.com", "***************")  # 登入寄件者gmail         ######################密碼密碼
+        smtp.login("ucard112408@gmail.com", "密碼密碼密碼")  # 登入寄件者gmail     #######################################gmail密碼
         smtp.send_message(content)  # 寄送郵件
         smtp.close()
       except Exception as e:
@@ -142,7 +152,7 @@ def changepwd():
   users.query.filter_by(email=email).update({'password': bcrypt.generate_password_hash(password=newpassword)})
   db.session.commit()
   username = email[:email.index("@")]
-  return jsonify({'message': 'User logged in successfully','userinf':{'username': username,'email': email,'token': 'token'}}), 203
+  return jsonify({'message': 'User logged in successfully','userinf':{'username': username,'email': email,'token': user.user_id}}), 203
 
 @app.route('/getbank', methods=['POST'])
 def getbank():
@@ -156,6 +166,20 @@ def getbank():
     }
     serialized_banks.append(serialized_bank)
   return jsonify(serialized_banks),203
+
+@app.route('/add_bank', methods=['POST'])
+def add_bank():
+  data = request.json
+  user_id = jwt.decode(data['usertoken'], app.config['JWT_SECRET_KEY'], algorithms=['HS256'])['user_id']
+  bankdata = data['bank_data']
+  for i in range(len(bankdata)):
+     if(bankdata[i]['ischeck'] == True):
+       new_banklist = user_banklist(user_id, bankdata[i]['bank_id'], 0, 0)
+       db.session.add(new_banklist)
+       db.session.commit()
+  
+  return jsonify({'message': 'Add bank successfully'}),201
+
 
 @app.route('/getcard', methods=['POST'])
 def getcard():
@@ -189,15 +213,17 @@ def getcard():
   
   return jsonify({'visa':serialized_cards_visa, 'ms':serialized_cards_ms, 'jcb':serialized_cards_jcb}),203
 
-@app.route('/getimg', methods=['GET'])
-def getimg():
-  imageurl = '/img/' + request.args.get('imageurl')  + '.webp'
-  return send_file(imageurl, mimetype='image/webp')
+
+
+# @app.route('/getimg', methods=['GET'])
+# def getimg():
+#   imageurl = '/img/' + request.args.get('imageurl')  + '.webp'
+#   return send_file(imageurl, mimetype='image/webp')
 
 @app.route('/recommend', methods=['GET'])
 def recommend():
   uri = "neo4j+s://cd122923.databases.neo4j.io"
-  driver = GraphDatabase.driver(uri, auth=("neo4j", "************************")) ######################密碼密碼
+  driver = GraphDatabase.driver(uri, auth=("neo4j", "密碼密碼密碼"))   #######################################neo4j密碼
 
   # 定義一個查詢函式
   def run_query(driver, query):
@@ -219,7 +245,5 @@ def recommend():
 
   return jsonify({'card':result_Array}),203
 
-
-
 if __name__ == '__main__':
-  app.run(debug='true',host='192.168.50.151') #192.168.50.151、192.168.176.197
+  app.run(debug='true',host='192.168.247.167') #192.168.50.151、192.168.176.197
