@@ -166,17 +166,27 @@ def getcard():
   serialized_cards_ms = []
   serialized_cards_jcb = []
   for card in cardlist:
-    serialized_card = {
-      'card_id': card.bank_id + card.category + card.card_id,
-      'bank_name': card.bank_name
-    }
+    if(card.bank_id == '013' and int(card.card_id) >=101 and int(card.card_id) <=105): #& int(card.card_id) >= 101 & int(card.card_id) <= 105
+      if(int(card.card_id) == 101):
+        serialized_card = {
+          'card_id': card.bank_id + card.category + card.card_id,
+          'card_name': '國泰CUBE卡'
+        }
+      else:
+        continue
+    else:
+      serialized_card = {
+        'card_id': card.bank_id + card.category + card.card_id,
+        'card_name': card.card_name
+      }
     match(card.category):
-      case 0:
+      case '0':
         serialized_cards_visa.append(serialized_card)
-      case 1:
+      case '1':
         serialized_cards_ms.append(serialized_card)
-      case 2:
+      case '2':
         serialized_cards_jcb.append(serialized_card)
+  
   return jsonify({'visa':serialized_cards_visa, 'ms':serialized_cards_ms, 'jcb':serialized_cards_jcb}),203
 
 @app.route('/getimg', methods=['GET'])
