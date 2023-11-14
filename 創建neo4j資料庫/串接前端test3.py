@@ -7,16 +7,20 @@ uri = "bolt://localhost:7687"
 #這是林宜靜"本地"的neo4j密碼！！！
 driver = GraphDatabase.driver(uri, auth=("neo4j", "Test1022"))
 
-def search_nodes_related_to_card(self, input_string):
+def search_nodes_related_to_card(tx, input_string):
     query = (
-        "MATCH (n:NodeLabel)-[:RELATED_TO]->(c:card) "
+        "MATCH (n:Categorical)-[:RELATED_TO]->(b) "
         "WHERE n.name CONTAINS $input_string "
-        "RETURN n, c"
+        "WITH n, b, CASE WHEN b:Categorical THEN 'categorical' ELSE 'other' END as nodeType "
+        "OPTIONAL MATCH (b)-[:reward]->(reward_card:card) "
+        "WITH n, b, nodeType, reward_card "
+        "RETURN n, b, nodeType, reward_card"
     )
 
-    with self._driver.session() as session:
+    with tx.session() as session:
         result = session.run(query, input_string=input_string)
         return result.data()
+
 
 
 

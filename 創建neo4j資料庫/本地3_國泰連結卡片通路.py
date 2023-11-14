@@ -28,7 +28,6 @@ def create_relationship(tx, from_node_name, to_node_names, relation_type):
 
         if not to_node_exists.single():
             print(f"！！！！！Node '{to_node_name}' does not exist")
-            break
         else:
             # 如果節點存在，則建立關聯
             merge_query = (
@@ -52,7 +51,7 @@ with driver.session() as session:
     rewards = [
         "日本", "韓國", "泰國", "新加坡", "國外餐飲",
                
-        "Uber", "LINE_TAXI", "yoxi", "台灣大車隊", "大都會計程車",
+        "Uber", "LINE_TAXI", "yoxi計程車", "台灣大車隊", "大都會計程車",
         
         "和運租車", "iRent", "格上租車", "中租租車", "AVIS租車",
         
@@ -98,7 +97,7 @@ with driver.session() as session:
 with driver.session() as session:
     rewards = [
         "家樂福",
-        "中油",
+        "台灣中油",
         "高鐵",
         "SevenEleven711", "全家FamilyMart", "全聯福利中心",
         "麥當勞", "星巴克",
@@ -137,7 +136,7 @@ with driver.session() as session:
                 
                 "國內餐飲",
                 
-                "cosmed康是美", "寶雅", "屈臣氏", "日藥本舖", "tomod_s", "松本清"
+                "cosmed康是美", "poya寶雅", "屈臣氏", "日藥本舖", "tomod_s", "松本清"
             ]
     session.write_transaction(create_relationship, "CUBE卡_樂饗購", rewards, "reward")
 

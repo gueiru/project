@@ -159,7 +159,7 @@ with driver.session() as session:
         "台灣大哥大", "MyVideo", "凱擘", "App_Store", "Google_Play",
         "PlayStation", "Nintendo", "Steam",
         "SevenEleven711", "全家FamilyMart",
-        "中油", "全國加油站", "台亞", "西歐加油站", "速邁樂加油站",
+        "台灣中油", "全國加油站", "台亞", "西歐加油站", "速邁樂加油站",
         "保費", "淘寶", "天貓", "中國", "香港", "澳門"
     ]
     session.write_transaction(create_relationship, "OpenPossible聯名卡", rewards, "reward")
