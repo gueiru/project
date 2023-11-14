@@ -1,14 +1,31 @@
-my_list = [
-    "富邦J卡", "富邦IMPERIAL尊御世界卡", "富邦數位生活卡", "富邦數位生活卡", "富邦數位生活卡",
-    "富邦數位生活悠遊聯名卡", "富邦數位生活一卡通聯名卡", "富邦鑽保卡", "富邦財神系列卡", "OpenPossible聯名卡",
-    "富邦世界卡", "富邦無限卡", "富邦富利生活系列卡", "富邦鈦金卡", "富邦銀行卡",
-    "富邦Costco聯名卡", "momo卡", "富邦悍將悠遊聯名卡", "台茂聯名卡", "廣三SOGO聯名卡",
-    "廣三SOGO聯名卡", "廣三SOGO悠遊聯名卡", "采盟聯名卡", "DHC聯名卡", "DHC聯名卡",
-    "福華聯名卡", "麗嬰房聯名卡", "麗嬰房聯名卡"
-]
+import requests
+from bs4 import BeautifulSoup
 
+def get_globalmall_discounts():
+    # 取得 GlobalMall 官網的優惠資訊
+    url = "https://www.globalmall.com.tw/promotions"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, "html.parser")
 
+    # 提取 GlobalMall 聯名卡的優惠資訊
+    discounts = []
+    for card in soup.find_all("div", class_="card-discount"):
+        title = card.find("h2").text
+        description = card.find("p").text
+        discounts.append({
+            "title": title,
+            "description": description
+        })
 
-need = list(set(my_list))
-print(need)
-print(len(need))
+    return discounts
+
+def main():
+    discounts = get_globalmall_discounts()
+
+    # 輸出優惠資訊
+    for discount in discounts:
+        print(discount["title"])
+        print(discount["description"])
+
+if __name__ == "__main__":
+    main()

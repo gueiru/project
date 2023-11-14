@@ -48,72 +48,239 @@ def create_relationship(tx, from_node_name, to_node_names, relation_type):
 #-------------------------------以下為建立資料庫的 code------------------------------------------
 # 
 with driver.session() as session:
-    rewards = [
-        
-    ]
+    rewards = []
     session.write_transaction(create_relationship, "", rewards, "reward")
+
+
+
+
+
+
+# 
+with driver.session() as session:
+    rewards = []
+    session.write_transaction(create_relationship, "", rewards, "reward")
+
+# 大葉髙島屋百貨聯名卡_白金卡
+with driver.session() as session:
+    rewards = ["大葉高島屋百貨"]
+    session.write_transaction(create_relationship, "大葉髙島屋百貨聯名卡_白金卡", rewards, "reward")
+
+# 大葉髙島屋百貨聯名卡_晶緻卡
+with driver.session() as session:
+    rewards = ["大葉高島屋百貨"]
+    session.write_transaction(create_relationship, "大葉髙島屋百貨聯名卡_晶緻卡", rewards, "reward")
+
+# 大葉髙島屋百貨聯名卡_御璽卡
+with driver.session() as session:
+    rewards = ["大葉高島屋百貨"]
+    session.write_transaction(create_relationship, "大葉髙島屋百貨聯名卡_御璽卡", rewards, "reward")
+
+# 大葉髙島屋百貨聯名卡_鈦金卡
+with driver.session() as session:
+    rewards = ["大葉高島屋百貨"]
+    session.write_transaction(create_relationship, "大葉髙島屋百貨聯名卡_鈦金卡", rewards, "reward")
+
+# 大葉髙島屋百貨聯名卡_無限卡
+with driver.session() as session:
+    rewards = ["大葉高島屋百貨"]
+    session.write_transaction(create_relationship, "大葉髙島屋百貨聯名卡_無限卡", rewards, "reward")
+
+# 大葉髙島屋百貨聯名卡_世界卡
+with driver.session() as session:
+    rewards = ["大葉高島屋百貨"]
+    session.write_transaction(create_relationship, "大葉髙島屋百貨聯名卡_世界卡", rewards, "reward")
+
+# 秀泰聯名卡_白金卡
+with driver.session() as session:
+    rewards = [
+        "ShowTimes秀泰影城", "秀泰生活", "花蓮蝴蝶谷溫泉渡假村"
+    ]
+    session.write_transaction(create_relationship, "秀泰聯名卡_白金卡", rewards, "reward")
+
+# 秀泰聯名卡_晶緻卡
+with driver.session() as session:
+    rewards = [
+        "ShowTimes秀泰影城", "秀泰生活", "花蓮蝴蝶谷溫泉渡假村"
+    ]
+    session.write_transaction(create_relationship, "秀泰聯名卡_晶緻卡", rewards, "reward")
+
+# GlobalMall聯名卡_白金卡
+with driver.session() as session:
+    rewards = [
+        "globalmall環球購物中心"
+    ]
+    session.write_transaction(create_relationship, "GlobalMall聯名卡_白金卡", rewards, "reward")
+
+# GlobalMall聯名卡_御璽卡
+with driver.session() as session:
+    rewards = [
+        "globalmall環球購物中心"
+    ]
+    session.write_transaction(create_relationship, "GlobalMall聯名卡_御璽卡", rewards, "reward")
+
+# GlobalMall聯名卡_無限卡
+with driver.session() as session:
+    rewards = [
+        "globalmall環球購物中心"
+    ]
+    session.write_transaction(create_relationship, "GlobalMall聯名卡_無限卡", rewards, "reward")
+
+# 漢神百貨聯名卡_白金卡
+with driver.session() as session:
+    rewards = [
+        "漢神百貨", "漢神巨蛋", "漢來大飯店"
+    ]
+    session.write_transaction(create_relationship, "漢神百貨聯名卡_白金卡", rewards, "reward")
+
+# 漢神百貨聯名卡_鈦金卡
+with driver.session() as session:
+    rewards = [
+        "漢神百貨", "漢神巨蛋", "漢來大飯店"
+    ]
+    session.write_transaction(create_relationship, "漢神百貨聯名卡_鈦金卡", rewards, "reward")
+
+# 漢神百貨聯名卡_晶緻卡
+with driver.session() as session:
+    rewards = [
+        "漢神百貨", "漢神巨蛋", "漢來大飯店"
+    ]
+    session.write_transaction(create_relationship, "漢神百貨聯名卡_晶緻卡", rewards, "reward")
+
+# 漢神百貨聯名卡_御璽卡
+with driver.session() as session:
+    rewards = [
+        "漢神百貨", "漢神巨蛋", "漢來大飯店"
+    ]
+    session.write_transaction(create_relationship, "漢神百貨聯名卡_御璽卡", rewards, "reward")
+
+# 漢神百貨聯名卡_世界卡
+with driver.session() as session:
+    rewards = [
+        "漢神百貨", "漢神巨蛋", "漢來大飯店"
+    ]
+    session.write_transaction(create_relationship, "漢神百貨聯名卡_世界卡", rewards, "reward")
+
+# 漢神百貨聯名卡_無限卡-----------------------
+with driver.session() as session:
+    rewards = [
+        "漢神百貨", "漢神巨蛋", "漢來大飯店"
+    ]
+    session.write_transaction(create_relationship, "漢神百貨聯名卡_無限卡", rewards, "reward")
+
+# 中華電信聯名卡_白金卡
+with driver.session() as session:
+    rewards = [
+        "Hami_Pay", "中華電信", "神腦國際senao"
+    ]
+    session.write_transaction(create_relationship, "中華電信聯名卡_白金卡", rewards, "reward")
+
+# 中華電信聯名卡_鈦金卡
+with driver.session() as session:
+    rewards = [
+        "Hami_Pay", "中華電信", "神腦國際senao"
+    ]
+    session.write_transaction(create_relationship, "中華電信聯名卡_鈦金卡", rewards, "reward")
+
+# 中華電信聯名卡_世界卡
+with driver.session() as session:
+    rewards = [
+        "Hami_Pay", "中華電信", "神腦國際senao"
+    ]
+    session.write_transaction(create_relationship, "中華電信聯名卡_世界卡", rewards, "reward")
+
+# 中華電信聯名卡_御璽卡
+with driver.session() as session:
+    rewards = [
+        "Hami_Pay", "中華電信", "神腦國際senao"
+    ]
+    session.write_transaction(create_relationship, "中華電信聯名卡_御璽卡", rewards, "reward")
+
+# 中華電信聯名卡_無限卡
+with driver.session() as session:
+    rewards = [
+        "Hami_Pay", "中華電信", "神腦國際senao"
+    ]
+    session.write_transaction(create_relationship, "中華電信聯名卡_無限卡", rewards, "reward")
+
+# 中信商務卡_雙幣商務卡
+with driver.session() as session:
+    rewards = []
+    session.write_transaction(create_relationship, "中信商務卡_雙幣商務卡", rewards, "reward")
+
+# LEXUS聯名卡
+with driver.session() as session:
+    rewards = [
+        "Lexus凌志", "海外", "台灣中油"
+    ]
+    session.write_transaction(create_relationship, "LEXUS聯名卡", rewards, "reward")
+
+# 中信兄弟聯名卡_白金卡
+with driver.session() as session:
+    rewards = []
+    session.write_transaction(create_relationship, "中信兄弟聯名卡_白金卡", rewards, "reward")
+
+# 中信兄弟聯名卡_鈦金卡
+with driver.session() as session:
+    rewards = []
+    session.write_transaction(create_relationship, "中信兄弟聯名卡_鈦金卡", rewards, "reward")
+
+# 中信兄弟聯名卡_御璽卡
+with driver.session() as session:
+    rewards = []
+    session.write_transaction(create_relationship, "中信兄弟聯名卡_御璽卡", rewards, "reward")
+
+# 中信兄弟聯名卡_鼎極卡 
+with driver.session() as session:
+    rewards = []
+    session.write_transaction(create_relationship, "中信兄弟聯名卡_鼎極卡", rewards, "reward")
 
 # SuperLife_VISA卡
 with driver.session() as session:
     rewards = [
-        
+        "家樂福", "大潤發", "愛買", "楓康", "保費",
+        "國內餐飲"
     ]
-    session.write_transaction(create_relationship, "", rewards, "reward")
+    session.write_transaction(create_relationship, "SuperLife_VISA卡", rewards, "reward")
 
 # 中信紅利卡
 with driver.session() as session:
-    rewards = [
-        
-    ]
-    session.write_transaction(create_relationship, "", rewards, "reward")
+    rewards = []
+    session.write_transaction(create_relationship, "中信紅利卡", rewards, "reward")
 
 # 中信現金回饋鈦金卡
 with driver.session() as session:
-    rewards = [
-        
-    ]
-    session.write_transaction(create_relationship, "", rewards, "reward")
+    rewards = []
+    session.write_transaction(create_relationship, "中信現金回饋鈦金卡", rewards, "reward")
 
 # 中信現金回饋御璽卡
 with driver.session() as session:
-    rewards = [
-        
-    ]
+    rewards = []
     session.write_transaction(create_relationship, "中信現金回饋御璽卡", rewards, "reward")
 
 # 中信紅利晶緻卡
 with driver.session() as session:
-    rewards = [
-        
-    ]
+    rewards = []
     session.write_transaction(create_relationship, "中信紅利晶緻卡", rewards, "reward")
 
 # 中信紅利御璽卡
 with driver.session() as session:
-    rewards = [
-        
-    ]
+    rewards = []
     session.write_transaction(create_relationship, "中信紅利御璽卡", rewards, "reward")
 
 # 中國信託鼎極卡_世界卡
 with driver.session() as session:
-    rewards = [
-        
-    ]
+    rewards = []
     session.write_transaction(create_relationship, "中國信託鼎極卡_世界卡", rewards, "reward")
 
 # 中國信託鼎極卡_極緻卡
 with driver.session() as session:
-    rewards = [
-        
-    ]
+    rewards = []
     session.write_transaction(create_relationship, "中國信託鼎極卡_極緻卡", rewards, "reward")
 
 # 中國信託鼎極卡_無限卡
 with driver.session() as session:
-    rewards = [
-        
-    ]
+    rewards = []
     session.write_transaction(create_relationship, "中國信託鼎極卡_無限卡", rewards, "reward")
 
 # 和泰聯名卡
