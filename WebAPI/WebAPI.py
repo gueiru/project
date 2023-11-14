@@ -10,7 +10,16 @@ import hashlib
 from neo4j import GraphDatabase
 import networkx as nx
 import jwt
-
+from ckiptagger import WS, POS, NER
+from ckiptagger import data_utils
+import numpy as np
+import gdown
+import requests
+import json
+# data_utils.download_data_gdown("./")
+ws = WS("./data")
+pos = POS("./data")
+ner = NER("./data")
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -213,12 +222,61 @@ def getcard():
   
   return jsonify({'visa':serialized_cards_visa, 'ms':serialized_cards_ms, 'jcb':serialized_cards_jcb}),203
 
+@app.route('/getshop', methods=['POST'])
+def getshop():
+  # 設定 Google Maps API 金鑰
+  API_KEY = "API_KEY"   #  API_KEY  API_KEY  API_KEY  API_KEY  API_KEY
 
+  # 設定查詢經緯度
+  LATITUDE = request.json['latitude'] # 25.042401556125302
+  LONGITUDE = request.json['longitude'] # 121.52531344898848
 
-# @app.route('/getimg', methods=['GET'])
-# def getimg():
-#   imageurl = '/img/' + request.args.get('imageurl')  + '.webp'
-#   return send_file(imageurl, mimetype='image/webp')
+  # 建立 Google Maps API 查詢物件
+  params = {
+    "key": API_KEY,
+    "location": f"{LATITUDE},{LONGITUDE}",
+    "radius": 1000,
+    "type": "bakery|bar|book_store|bowling_alley|cafe\
+      |car_dealer|car_rental|car_repair|clothing_store\
+      |convenience_store|department_store|drugstore\
+      |electronics_store|florist|furniture_store\
+      |gas_station|gym|hardware_store|home_goods_store\
+      |jewelry_store|liquor_store|lodging|meal_delivery|meal_takeaway\
+      |movie_theater|night_club|parking|pet_store|pharmacy\
+      |restaurant|shoe_store|shopping_mall|store|supermarket|travel_agency"
+  }
+
+  # 發送查詢請求
+  response = requests.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json", params=params)
+
+  # 解析查詢回應
+  results = json.loads(response.content)
+
+  # 列出距離最近的五個銷售店家
+  names_list = []  # 創建一個空的列表來儲存名稱
+
+  for result in results["results"]:
+    names_list.append(result['name'])
+
+  word_s = ws(names_list,
+            sentence_segmentation=True,
+            segment_delimiter_set={'?', '？', '!', '！', '。', ',','，', ';', ':', '、'})
+
+  word_p = pos(word_s)
+  shop_list = []
+  def combine_wandp(w_list, p_list):
+    assert len(w_list) == len(p_list)
+    shop = ''
+    for w, p in zip(w_list, p_list):
+        if(p != 'Nc'):
+          shop += w
+    return shop
+  for i, sentence in enumerate(names_list):
+    shop_name = combine_wandp(word_s[i], word_p[i])
+    shop_list.append(shop_name)
+  print(shop_list)
+    
+  return jsonify(shop_list),203
 
 @app.route('/recommend', methods=['GET'])
 def recommend():
