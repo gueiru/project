@@ -46,6 +46,149 @@ def create_relationship(tx, from_node_name, to_node_names, relation_type):
 
 
 #-------------------------------以下為建立資料庫的 code------------------------------------------
+# 
+with driver.session() as session:
+    rewards = [
+        
+    ]
+    session.write_transaction(create_relationship, "", rewards, "reward")
+
+# SuperLife_VISA卡
+with driver.session() as session:
+    rewards = [
+        
+    ]
+    session.write_transaction(create_relationship, "", rewards, "reward")
+
+# 中信紅利卡
+with driver.session() as session:
+    rewards = [
+        
+    ]
+    session.write_transaction(create_relationship, "", rewards, "reward")
+
+# 中信現金回饋鈦金卡
+with driver.session() as session:
+    rewards = [
+        
+    ]
+    session.write_transaction(create_relationship, "", rewards, "reward")
+
+# 中信現金回饋御璽卡
+with driver.session() as session:
+    rewards = [
+        
+    ]
+    session.write_transaction(create_relationship, "中信現金回饋御璽卡", rewards, "reward")
+
+# 中信紅利晶緻卡
+with driver.session() as session:
+    rewards = [
+        
+    ]
+    session.write_transaction(create_relationship, "中信紅利晶緻卡", rewards, "reward")
+
+# 中信紅利御璽卡
+with driver.session() as session:
+    rewards = [
+        
+    ]
+    session.write_transaction(create_relationship, "中信紅利御璽卡", rewards, "reward")
+
+# 中國信託鼎極卡_世界卡
+with driver.session() as session:
+    rewards = [
+        
+    ]
+    session.write_transaction(create_relationship, "中國信託鼎極卡_世界卡", rewards, "reward")
+
+# 中國信託鼎極卡_極緻卡
+with driver.session() as session:
+    rewards = [
+        
+    ]
+    session.write_transaction(create_relationship, "中國信託鼎極卡_極緻卡", rewards, "reward")
+
+# 中國信託鼎極卡_無限卡
+with driver.session() as session:
+    rewards = [
+        
+    ]
+    session.write_transaction(create_relationship, "中國信託鼎極卡_無限卡", rewards, "reward")
+
+# 和泰聯名卡
+with driver.session() as session:
+    rewards = [
+        "toyota豐田", "Lexus凌志", "yoxi計程車", "iRent",
+        "hotai購商城購物", "長源汽車", "和泰產險"
+        "家樂福", "大潤發", "愛買", "ikea宜家家居", "特力屋", 
+        "旅行社", "航空公司", "連鎖飯店", 
+        "Agoda", "Booking_com", "Expedia", "Hotels_com", "AsiaYo",
+        "Trip_com", "Airbnb", "KKday", "KLOOK",
+        "海外", "和泰pay"
+    ]
+
+# TAIPEI101聯名卡_新御璽卡
+with driver.session() as session:
+    rewards = [
+        "台北101"
+    ]
+    session.write_transaction(create_relationship, "TAIPEI101聯名卡_新御璽卡", rewards, "reward")
+
+# TAIPEI101聯名卡_新鼎極卡
+with driver.session() as session:
+    rewards = [
+        "台北101"
+    ]
+    session.write_transaction(create_relationship, "TAIPEI101聯名卡_新鼎極卡", rewards, "reward")
+
+# TAIPEI101聯名卡_尊榮鼎極卡
+with driver.session() as session:
+    rewards = [
+        "台北101"
+    ]
+    session.write_transaction(create_relationship, "TAIPEI101聯名卡_尊榮鼎極卡", rewards, "reward")
+
+# 中油聯名卡_白金卡
+with driver.session() as session:
+    rewards = [
+        "台灣中油", "中油pay"
+    ]
+    session.write_transaction(create_relationship, "中油聯名卡_白金卡", rewards, "reward")
+
+# 中油聯名卡_御璽卡
+with driver.session() as session:
+    rewards = [
+        "台灣中油", "中油pay"
+    ]
+    session.write_transaction(create_relationship, "中油聯名卡_御璽卡", rewards, "reward")
+
+
+# 英雄聯盟信用卡
+with driver.session() as session:
+    rewards = [
+        "App_Store", "Google_Play", "Bandai萬代南夢宮遊戲", "Blizzard暴雪", "Electronic_arts",
+        "Epic_games_store", "GASH", "Garena", "MyCard", "Nintendo",
+        "PlayStation", "Square_enix", "Steam", "Ubisoft", "Xbox",
+        "appleTV", "CATCHPLAY", "iTunes", "KKBOX", "LINETV", 
+        "LiTV", "Netflix", "Spotify", "Youtube_Premium", "KKTV",
+        "Amazon_Prime_Video", "Disney_Plus", "讀墨電子書READMOO"
+        "台灣角川官方網站", "尖端網路書店", "青文出版社", "長鴻新漫網",
+        "台灣東販出版社", "東立電子書城", "動畫瘋", "Booklive", "BOOKWALKER",
+        "Kakao_Webtoon", "LINE_WEBTOON","POCKET_COMICS", "讀墨電子書READMOO",
+        "udn售票", "iNDIEVOX售票", "KKTIX售票", "ibon售票",
+        "tixcraft拓元售票", "FamiTicket全網購票", "OPENTIX兩廳院文化生活",
+        "中信兄弟售票網", "年代售票", "寬宏售票"
+    ]
+    session.write_transaction(create_relationship, "英雄聯盟信用卡", rewards, "reward")
+
+# LINE_Pay信用卡
+with driver.session() as session:
+    rewards = [
+        "linepay", "ipass一卡通"
+    ]
+    session.write_transaction(create_relationship, "", rewards, "reward")
+
 # ALL_ME卡
 with driver.session() as session:
     rewards = [
@@ -55,7 +198,13 @@ with driver.session() as session:
         "屈臣氏", "cosmed康是美", "poya寶雅", "松本清", "日藥本舖",
         "三井3c", "順發3c", "京站時尚廣場", "美麗華百樂園",
         "宏匯廣場", "三創生活園區", "屏東太平洋百貨",
-        
+        "漢堡王", "鬍鬚張", "勝博殿", "大戶屋", "沃克牛排", 
+        "TeaTop台灣第一味", "金色三麥", "康青龍", "萬波島嶼紅茶",
+        "貢茶", "赤鬼炙燒牛排",
+        "FunNow", "拍享券", "一起寄", "九乘九文具專家",
+        "卡多摩嬰童館", "Wstyle", "咕咕G寵物城", "貓狗大棧寵物百貨",
+        "SofyDog蘇菲狗寵物精品", "寵物公園", "凱朵寵物美容沙龍", "貓狗隊長",
+        "讀墨電子書READMOO"
     ]
     session.write_transaction(create_relationship, "ALL_ME卡", rewards, "reward")
 
