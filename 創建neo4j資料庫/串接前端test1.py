@@ -3,7 +3,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 # 建立與 Neo4j 的連接
-uri = "neo4j+s://cd122923.databases.neo4j.io "
+uri = "neo4j+s://cd122923.databases.neo4j.io"
 driver = GraphDatabase.driver(uri, auth=("neo4j", "XMvLaxouvDASwAcmMpcndl7W9j6pf6RpLs7ahPjjxQg"))
 
 # 定義一個查詢函式

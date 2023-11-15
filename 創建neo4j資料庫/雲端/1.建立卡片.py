@@ -3,7 +3,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 #更改Neo4j Bolt連線設定
-uri = "neo4j+s://cd122923.databases.neo4j.io "
+uri = "neo4j+s://cd122923.databases.neo4j.io"
 driver = GraphDatabase.driver(uri, auth=("neo4j", "XMvLaxouvDASwAcmMpcndl7W9j6pf6RpLs7ahPjjxQg"))
 
 def do_Cypher(tx, text):
@@ -66,16 +66,13 @@ def create_knowledge_point(tx, label, relation, obj):
 #-------------------------------以下為建立資料庫的code------------------------------------------
 # 國泰卡片
 with driver.session() as session:
-    card12 = ["蝦皮購物聯名卡", 
-             "長榮航空聯名卡", 
-             "CUBE卡_玩數位", "CUBE卡_樂饗購", "CUBE卡_趣旅行", "CUBE卡_集精選", "CUBE卡_慶生月",
-             "國泰世界卡",
-             "亞洲萬里通聯名卡",
-             "台塑聯名卡",
-             "雙幣卡",
-             "eTag聯名卡"]
+    card12 = [
+    "世界卡", "eTag聯名卡", "現金回饋御璽卡", "雙幣白金卡",
+    "台塑聯名卡", "CUBE卡_玩數位", "CUBE卡_樂饗購", "蝦皮購物聯名卡",
+    "CUBE卡_集精選", "雙幣商務鈦金卡", "CUBE卡_慶生月", "CUBE卡_趣旅行"
+    ]
     for card in card12:
-        session.write_transaction(create_knowledge_point, "國泰信用卡", "include", card)
+        session.write_transaction(create_knowledge_point, "card", "include", card)
 print("----------------------------------------------------------------")
 
 # 富邦卡片
@@ -88,29 +85,41 @@ with driver.session() as session:
         "momo卡", "富邦J卡", "富邦鑽保卡"
     ]
     for card in card23:
-        session.write_transaction(create_knowledge_point, "富邦信用卡", "include", card)
+        session.write_transaction(create_knowledge_point, "card", "include", card)
 print("----------------------------------------------------------------")
 
 # 中信卡片
 with driver.session() as session:
-    card51 = [
-        "中信現金回饋鈦金卡", "南紡購物中心聯名卡_鼎極無限卡", "中國信託鼎極卡_無限卡",
-        "TAIPEI101聯名卡_新鼎極卡", "英雄聯盟信用卡", "中信兄弟聯名卡_白金卡",
-        "TAIPEI101聯名卡_尊榮鼎極卡", "GlobalMall聯名卡_無限卡", "南紡購物中心聯名卡_御璽卡",
-        "中信兄弟聯名卡_御璽卡", "Agoda聯名卡", "中信紅利御璽卡", "秀泰聯名卡_白金卡",
-        "中信現金回饋御璽卡", "GlobalMall聯名卡_白金卡", "漢神百貨聯名卡_晶緻卡",
-        "中信紅利卡", "中信商旅鈦金卡", "LEXUS聯名卡", "ALL_ME卡", "中油聯名卡_御璽卡",
-        "漢神百貨聯名卡_御璽卡", "中信紅利晶緻卡", "漢神百貨聯名卡_無限卡", "TAIPEI101聯名卡_新御璽卡",
-        "中國信託鼎極卡_極緻卡", "Mitsui_Shopping_Park_LaLaport聯名卡", "中華電信聯名卡_白金卡",
-        "大葉髙島屋百貨聯名卡_御璽卡", "秀泰聯名卡_晶緻卡", "中華電信聯名卡_世界卡", "大葉髙島屋百貨聯名卡_晶緻卡",
-        "大葉髙島屋百貨聯名卡_鈦金卡", "中油聯名卡_白金卡", "勤美天地聯名卡_御璽卡", "中華電信聯名卡_御璽卡",
-        "漢神百貨聯名卡_世界卡", "GlobalMall聯名卡_御璽卡", "大葉髙島屋百貨聯名卡_白金卡", "LINE_Pay信用卡",
-        "中信兄弟聯名卡_鼎極卡", "中國信託鼎極卡_世界卡", "漢神百貨聯名卡_鈦金卡", "大葉髙島屋百貨聯名卡_世界卡",
-        "大葉髙島屋百貨聯名卡_無限卡", "SuperLife_VISA卡", "中信商務卡_雙幣商務卡", "和泰聯名卡",
-        "中華電信聯名卡_無限卡", "中信兄弟聯名卡_鈦金卡", "中華電信聯名卡_鈦金卡"
+    card59 = [
+        "Agoda聯名卡", "Mitsui_Shopping_Park_LaLaport聯名卡", "ALL_ME卡",
+        "LINE_Pay信用卡", "英雄聯盟信用卡", "中油聯名卡_御璽卡", "中油聯名卡_白金卡",
+        "TAIPEI101聯名卡_尊榮鼎極卡", "TAIPEI101聯名卡_新鼎極卡", "TAIPEI101聯名卡_新御璽卡"
+        
+        "和泰聯名卡", "中國信託鼎極卡_無限卡", "中國信託鼎極卡_極緻卡", "中國信託鼎極卡_世界卡",
+        "中信紅利御璽卡_時尚族", "中信紅利御璽卡_行動族", "中信紅利御璽卡_旅遊族", "中信紅利御璽卡_居家族",
+        "中信紅利晶緻卡_時尚族", "中信紅利晶緻卡_行動族", "中信紅利晶緻卡_旅遊族", "中信紅利晶緻卡_居家族"
+        "中信現金回饋御璽卡", "中信現金回饋鈦金卡",
+        "中信紅利卡_時尚高手", "中信紅利卡_生活菁英", "SuperLife_VISA卡"
+        
+        "中信兄弟聯名卡_鼎極卡", "中信兄弟聯名卡_御璽卡", "中信兄弟聯名卡_鈦金卡", "中信兄弟聯名卡_白金卡",
+        "LEXUS聯名卡", "中信商務卡_雙幣商務卡", "中華電信聯名卡_無限卡", "中華電信聯名卡_御璽卡",
+        "中華電信聯名卡_世界卡", "中華電信聯名卡_鈦金卡",
+        
+        "中華電信聯名卡_白金卡", "漢神百貨聯名卡_無限卡", "漢神百貨聯名卡_世界卡",
+        "漢神百貨聯名卡_御璽卡", "漢神百貨聯名卡_晶緻卡", "漢神百貨聯名卡_鈦金卡",
+        "漢神百貨聯名卡_白金卡", "GlobalMall聯名卡_無限卡", "GlobalMall聯名卡_御璽卡",
+        "GlobalMall聯名卡_白金卡",
+        
+        "秀泰聯名卡_晶緻卡", "秀泰聯名卡_白金卡", "大葉髙島屋百貨聯名卡_世界卡",
+        "大葉髙島屋百貨聯名卡_無限卡", "大葉髙島屋百貨聯名卡_鈦金卡", "大葉髙島屋百貨聯名卡_御璽卡", 
+        "大葉髙島屋百貨聯名卡_晶緻卡", "大葉髙島屋百貨聯名卡_白金卡",
+        "南紡購物中心聯名卡_鼎極無限卡", "南紡購物中心聯名卡_御璽卡",
+        
+        "南紡購物中心聯名卡_白金卡", "勤美天地聯名卡_御璽卡", "勤美天地聯名卡_晶緻卡",
+        "勤美天地聯名卡_白金卡", "MUJI無印良品聯名卡_御璽卡", "MUJI無印良品聯名卡_晶緻卡",
+        "MUJI無印良品聯名卡_白金卡", "酷玩卡_鈦金卡", "統一企業認同卡"
     ]
     
-    
-    for card in card51:
-        session.write_transaction(create_knowledge_point, "中信信用卡", "include", card)
+    for card in card59:
+        session.write_transaction(create_knowledge_point, "card", "include", card)
 print("------------------done------------------")
