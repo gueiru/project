@@ -99,13 +99,13 @@ with driver.session() as session:
         "家樂福",
         "台灣中油",
         "高鐵",
-        "SevenEleven711", "全家FamilyMart", "全聯福利中心",
+        "SevenEleven711統一超商", "全家FamilyMart", "全聯福利中心",
         "麥當勞", "星巴克",
         "foodomo",
         "遠東SOGO百貨",
         "博客來",
         "城市車旅", "嘟嘟房",
-        "OPEN錢包"
+        "open錢包"
     ]
     session.write_transaction(create_relationship,"CUBE卡_集精選", rewards, "reward")
 
@@ -119,10 +119,10 @@ with driver.session() as session:
 # CUBE卡_樂饗購
 with driver.session() as session:
     rewards = [ "遠東SOGO百貨", "太平洋百貨", "新光三越", "SKM_Park", "遠東百貨",
-                "Big_City遠東巨城購物中心", "微風廣場", "誠品生活", "環球購物中心", "CITYLINK",
-                "BELLAVITA", "統一時代", "台北101", "ATT_4_FUN", "明曜百貨", "京站時尚廣場",
-                "美麗華百樂園", "大葉高島屋", "遠企購物中心", "比漾廣場", "大江國際購物中心",
-                "中友百貨", "廣三SOGO", "Tiger_City", "勤美誠品綠園道", "金典綠園道",
+                "Big_City遠東巨城購物中心", "微風廣場", "誠品生活", "globalmall環球購物中心", "CITYLINK",
+                "BELLAVITA", "統一時代百貨", "台北101", "ATT_4_FUN", "明曜百貨", "京站時尚廣場",
+                "美麗華百樂園", "大葉高島屋百貨", "遠企購物中心", "比漾廣場", "大江國際購物中心",
+                "中友百貨", "廣三SOGO", "Tiger_City", "勤美誠品綠園道", "金典綠園道商場",
                 "大魯閣新時代", "耐斯廣場", "南紡購物中心", "德安百貨", "夢時代", "大立百貨",
                 "大統百貨", "漢神百貨", "漢神巨蛋",
                 "林口MITSUI_OUTLET_PARK", "台中港MITSUI_OUTLET_PARK", "台南MITSUI_OUTLET_PARK",

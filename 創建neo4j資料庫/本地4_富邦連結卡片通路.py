@@ -97,7 +97,7 @@ with driver.session() as session:
         "pchome商店街", "淘寶", "天貓", "蝦皮購物",
         "myfone購物", "udn買東西", "樂天", "friday購物", "博客來", "生活市集",
         "松果購物", "citiesocial找好東西", "zalora", "shopback",
-        "東森", "森森", "viva", "momo",
+        "東森購物", "森森", "viva", "momo",
         
         "台灣大哥大", "中華電信", "遠傳", "台灣之星", "亞太"
     ]
@@ -117,7 +117,7 @@ with driver.session() as session:
         "pchome商店街", "淘寶", "天貓", "蝦皮購物",
         "myfone購物", "udn買東西", "樂天", "friday購物", "博客來", "生活市集",
         "松果購物", "citiesocial找好東西", "zalora", "shopback",
-        "東森", "森森", "viva", "momo",
+        "東森購物", "森森", "viva", "momo",
         
         "台灣大哥大", "中華電信", "遠傳", "台灣之星", "亞太"
     ]
@@ -158,7 +158,7 @@ with driver.session() as session:
     rewards = [
         "台灣大哥大", "MyVideo", "凱擘", "App_Store", "Google_Play",
         "PlayStation", "Nintendo", "Steam",
-        "SevenEleven711", "全家FamilyMart",
+        "SevenEleven711統一超商", "全家FamilyMart",
         "台灣中油", "全國加油站", "台亞", "西歐加油站", "速邁樂加油站",
         "保費", "淘寶", "天貓", "中國", "香港", "澳門"
     ]
@@ -222,7 +222,7 @@ with driver.session() as session:
         "pchome商店街", "淘寶", "天貓", "蝦皮購物",
         "myfone購物", "udn買東西", "樂天", "friday購物", "博客來", "生活市集",
         "松果購物", "citiesocial找好東西", "zalora", "shopback",
-        "東森", "森森", "viva", "momo",
+        "東森購物", "森森", "viva", "momo",
         
         "台灣大哥大", "中華電信", "遠傳", "台灣之星", "亞太"
     ]

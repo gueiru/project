@@ -9,7 +9,8 @@ driver = GraphDatabase.driver(uri, auth=("neo4j", "XMvLaxouvDASwAcmMpcndl7W9j6pf
 # 定義一個查詢函式
 def run_query(tx, search_keyword):
     query = (
-        "MATCH (source)-[:reward]->(destination {name: $search_keyword}) "
+        "MATCH (source)-[:reward]->(destination) "
+        "WHERE toLower(destination.name) CONTAINS toLower($search_keyword) "
         "RETURN source, destination"
     )
 
@@ -17,16 +18,13 @@ def run_query(tx, search_keyword):
     return result.data()
 
 # 輸入關鍵詞
-search_keyword = "蝦皮購物"
-
+search_keyword = "加油站"
 with driver.session() as session:
     result = session.read_transaction(run_query, search_keyword)
 
 # 查詢結果
 for record in result:
     print(f"Source: {record['source']}, Destination: {record['destination']}")
-
-for record in result:
     print("卡片：", record['source'])
     
 driver.close()
