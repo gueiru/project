@@ -1,11 +1,4 @@
 from neo4j import GraphDatabase
-import networkx as nx
-import matplotlib.pyplot as plt
-
-#更改Neo4j Bolt連線設定
-uri = "bolt://localhost:7687"
-#這是林宜靜"本地"的neo4j密碼！！！
-driver = GraphDatabase.driver(uri, auth=("neo4j", "Test1022"))
 
 def search_nodes_related_to_card(tx, input_string):
     query = (
@@ -17,14 +10,13 @@ def search_nodes_related_to_card(tx, input_string):
         "RETURN n, b, nodeType, reward_card"
     )
 
-    with tx.session() as session:
-        result = session.run(query, input_string=input_string)
-        return result.data()
+    result = tx.run(query, input_string=input_string)
+    return result.data()
 
+uri = "bolt://localhost:7687"
+driver = GraphDatabase.driver(uri, auth=("neo4j", "Test1022"))
 
-
-
-input_string = "全家"
+input_string = "蝦皮"
 with driver.session() as session:
     result_data = session.read_transaction(search_nodes_related_to_card, input_string)
 
