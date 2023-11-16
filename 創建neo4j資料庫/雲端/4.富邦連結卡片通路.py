@@ -80,16 +80,16 @@ with driver.session() as session:
     ]
     session.write_transaction(create_relationship, "富邦世界卡", rewards, "reward")
 
-# 富邦IMPERIAL尊御世界卡
+# 富邦IMPERIAL_尊御世界卡
 with driver.session() as session:
     rewards = [
         "台北美福大飯店", "寒舍艾麗酒店", "台北新板希爾頓酒店", "台北君悅酒店",
         "新竹國賓大飯店", "台中日月千禧酒店", "台南遠東香格里拉", "君品酒店",
         "台北W飯店"    
     ]
-    session.write_transaction(create_relationship, "富邦IMPERIAL尊御世界卡", rewards, "reward")
+    session.write_transaction(create_relationship, "富邦IMPERIAL_尊御世界卡", rewards, "reward")
 
-# 富邦數位生活一卡通聯名卡
+# 富邦數位生活_一卡通聯名卡
 with driver.session() as session:
     rewards = [
         "yahoo奇摩購物中心", "yahoo超級商城", "yahoo拍賣", "pchome線上購物",
@@ -100,7 +100,7 @@ with driver.session() as session:
         
         "台灣大哥大", "中華電信", "遠傳", "台灣之星", "亞太"
     ]
-    session.write_transaction(create_relationship, "富邦數位生活一卡通聯名卡", rewards, "reward")
+    session.write_transaction(create_relationship, "富邦數位生活_一卡通聯名卡", rewards, "reward")
 
 # 富邦鈦金卡
 with driver.session() as session:
@@ -109,7 +109,7 @@ with driver.session() as session:
     ]
     session.write_transaction(create_relationship, "富邦鈦金卡", rewards, "reward")
 
-# 富邦數位生活悠遊聯名卡
+# 富邦數位生活_悠遊聯名卡
 with driver.session() as session:
     rewards = [
         "yahoo奇摩購物中心", "yahoo超級商城", "yahoo拍賣", "pchome線上購物",
@@ -120,7 +120,7 @@ with driver.session() as session:
         
         "台灣大哥大", "中華電信", "遠傳", "台灣之星", "亞太"
     ]
-    session.write_transaction(create_relationship, "富邦數位生活悠遊聯名卡", rewards, "reward")
+    session.write_transaction(create_relationship, "富邦數位生活_悠遊聯名卡", rewards, "reward")
     
 # 采盟聯名卡
 with driver.session() as session:
@@ -230,7 +230,7 @@ with driver.session() as session:
 # 富邦富利生活系列卡
 with driver.session() as session:
     rewards = [
-        "百貨公司", "超市", "國內餐飲", "加油站", "書局",
+        "百貨公司", "超市", "餐廳", "加油站", "書局",
         "旅行社",
         "虎航", "長榮航空", "華航", "星宇", "立榮",  "華信"
     ]

@@ -121,35 +121,35 @@ with driver.session() as session:
     rewards = ["南紡購物中心"]
     session.write_transaction(create_relationship, "南紡購物中心聯名卡_鼎極無限卡", rewards, "reward")
 
-# 大葉髙島屋百貨聯名卡_白金卡
+# 大葉髙島屋聯名卡_白金卡
 with driver.session() as session:
     rewards = ["大葉高島屋百貨"]
-    session.write_transaction(create_relationship, "大葉髙島屋百貨聯名卡_白金卡", rewards, "reward")
+    session.write_transaction(create_relationship, "大葉髙島屋聯名卡_白金卡", rewards, "reward")
 
-# 大葉髙島屋百貨聯名卡_晶緻卡
+# 大葉髙島屋聯名卡_晶緻卡
 with driver.session() as session:
     rewards = ["大葉高島屋百貨"]
-    session.write_transaction(create_relationship, "大葉髙島屋百貨聯名卡_晶緻卡", rewards, "reward")
+    session.write_transaction(create_relationship, "大葉髙島屋聯名卡_晶緻卡", rewards, "reward")
 
-# 大葉髙島屋百貨聯名卡_御璽卡
+# 大葉髙島屋聯名卡_御璽卡
 with driver.session() as session:
     rewards = ["大葉高島屋百貨"]
-    session.write_transaction(create_relationship, "大葉髙島屋百貨聯名卡_御璽卡", rewards, "reward")
+    session.write_transaction(create_relationship, "大葉髙島屋聯名卡_御璽卡", rewards, "reward")
 
-# 大葉髙島屋百貨聯名卡_鈦金卡
+# 大葉髙島屋聯名卡_鈦金卡
 with driver.session() as session:
     rewards = ["大葉高島屋百貨"]
-    session.write_transaction(create_relationship, "大葉髙島屋百貨聯名卡_鈦金卡", rewards, "reward")
+    session.write_transaction(create_relationship, "大葉髙島屋聯名卡_鈦金卡", rewards, "reward")
 
-# 大葉髙島屋百貨聯名卡_無限卡
+# 大葉髙島屋聯名卡_無限卡
 with driver.session() as session:
     rewards = ["大葉高島屋百貨"]
-    session.write_transaction(create_relationship, "大葉髙島屋百貨聯名卡_無限卡", rewards, "reward")
+    session.write_transaction(create_relationship, "大葉髙島屋聯名卡_無限卡", rewards, "reward")
 
-# 大葉髙島屋百貨聯名卡_世界卡
+# 大葉髙島屋聯名卡_世界卡
 with driver.session() as session:
     rewards = ["大葉高島屋百貨"]
-    session.write_transaction(create_relationship, "大葉髙島屋百貨聯名卡_世界卡", rewards, "reward")
+    session.write_transaction(create_relationship, "大葉髙島屋聯名卡_世界卡", rewards, "reward")
 
 # 秀泰聯名卡_白金卡
 with driver.session() as session:
@@ -221,7 +221,7 @@ with driver.session() as session:
     ]
     session.write_transaction(create_relationship, "漢神百貨聯名卡_世界卡", rewards, "reward")
 
-# 漢神百貨聯名卡_無限卡-----------------------
+# 漢神百貨聯名卡_無限卡
 with driver.session() as session:
     rewards = [
         "漢神百貨", "漢神巨蛋", "漢來大飯店"
@@ -314,7 +314,7 @@ with driver.session() as session:
         "國內餐飲", "住宿", "連鎖飯店",
         "旅行社", "航空公司"
     ]
-    session.write_transaction(create_relationship, "中信紅利卡", rewards, "reward")
+    session.write_transaction(create_relationship, "中信紅利卡_生活菁英", rewards, "reward")
 
 # 中信紅利卡_時尚高手
 with driver.session() as session:
@@ -322,7 +322,7 @@ with driver.session() as session:
         "百貨公司", "書店",
         "大潤發", "大買家", "愛買", "家樂福"
     ]
-    session.write_transaction(create_relationship, "中信紅利卡", rewards, "reward")
+    session.write_transaction(create_relationship, "中信紅利卡_時尚高手", rewards, "reward")
 
 # ---------------------------------------------------------------------------------------------------------------------------------
 
@@ -424,6 +424,7 @@ with driver.session() as session:
         "Trip_com", "Airbnb", "KKday", "KLOOK",
         "海外", "和泰pay"
     ]
+    session.write_transaction(create_relationship, "和泰聯名卡", rewards, "reward")
 
 # TAIPEI101聯名卡_新御璽卡
 with driver.session() as session:
@@ -484,7 +485,7 @@ with driver.session() as session:
     rewards = [
         "linepay", "ipass一卡通"
     ]
-    session.write_transaction(create_relationship, "", rewards, "reward")
+    session.write_transaction(create_relationship, "LINE_Pay信用卡", rewards, "reward")
 
 # ALL_ME卡
 with driver.session() as session:
@@ -505,12 +506,12 @@ with driver.session() as session:
     ]
     session.write_transaction(create_relationship, "ALL_ME卡", rewards, "reward")
 
-# Mitsui_Shopping_Park_LaLaport聯名卡
+# LaLaport聯名卡
 with driver.session() as session:
     rewards = [
         "台中Mitsui_Shopping_Park_LaLaport"
     ]
-    session.write_transaction(create_relationship, "Agoda聯名卡", rewards, "reward")
+    session.write_transaction(create_relationship, "LaLaport聯名卡", rewards, "reward")
 
 # Agoda聯名卡
 with driver.session() as session:
