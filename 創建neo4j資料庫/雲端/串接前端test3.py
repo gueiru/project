@@ -22,7 +22,7 @@ def run_query(tx, search_keyword):
     return result.data()
 
 # 輸入關鍵詞
-search_keyword = "住宿"
+search_keyword = "飯店"
 with driver.session() as session:
     result = session.read_transaction(run_query, search_keyword)
 
