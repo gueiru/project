@@ -9,6 +9,7 @@ import smtplib
 import hashlib
 from neo4j import GraphDatabase
 import networkx as nx
+import matplotlib.pyplot as plt
 import jwt
 from ckiptagger import WS, POS, NER
 from ckiptagger import data_utils
@@ -17,9 +18,9 @@ import gdown
 import requests
 import json
 # data_utils.download_data_gdown("./")
-ws = WS("./data")
-pos = POS("./data")
-ner = NER("./data")
+# ws = WS("./data")
+# pos = POS("./data")
+# ner = NER("./data")
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -73,6 +74,18 @@ class user_banklist(db.Model):
     self.bank_id = bank_id
     self.auto_debit = auto_debit
     self.e_bill = e_bill
+    
+class user_cardlist(db.Model):
+  user_id = db.Column(db.Integer, primary_key=True)
+  bank_id = db.Column(db.String(3), primary_key=True)
+  category = db.Column(db.String(1), primary_key=True)
+  card_id = db.Column(db.String(3), primary_key=True)
+
+  def __init__(self, user_id, bank_id, category, card_id):
+    self.user_id = user_id
+    self.bank_id = bank_id
+    self.category = category
+    self.card_id = card_id
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -165,53 +178,90 @@ def changepwd():
 
 @app.route('/getbank', methods=['POST'])
 def getbank():
+  data = request.json
+  user_id = jwt.decode(data['usertoken'], app.config['JWT_SECRET_KEY'], algorithms=['HS256'])['user_id']
   banklist = banks.query.all()
+  
   # 陣列化資料
   serialized_banks = []
   for bank in banklist:
-    serialized_bank = {
-      'bank_id': bank.bank_id,
-      'bank_name': bank.bank_name
-    }
+    check = user_banklist.query.filter_by(user_id=user_id,bank_id=bank.bank_id).first()
+    if not check:
+      serialized_bank = {
+        'bank_id': bank.bank_id,
+        'bank_name': bank.bank_name,
+        'ischeck': False,
+        'auto_debit': False,
+        'e_bill': False
+      }
+    else:
+      serialized_bank = {
+        'bank_id': bank.bank_id,
+        'bank_name': bank.bank_name,
+        'ischeck': True,
+        'auto_debit': check.auto_debit,
+        'e_bill': check.e_bill
+      }
     serialized_banks.append(serialized_bank)
-  return jsonify(serialized_banks),203
+  return jsonify(serialized_banks),201
 
 @app.route('/add_bank', methods=['POST'])
 def add_bank():
   data = request.json
   user_id = jwt.decode(data['usertoken'], app.config['JWT_SECRET_KEY'], algorithms=['HS256'])['user_id']
   bankdata = data['bank_data']
+  user_banklist.query.filter_by(user_id=user_id).delete()
+  
   for i in range(len(bankdata)):
      if(bankdata[i]['ischeck'] == True):
-       new_banklist = user_banklist(user_id, bankdata[i]['bank_id'], 0, 0)
+       new_banklist = user_banklist(user_id, bankdata[i]['bank_id'], bankdata[i]['auto_debit'], bankdata[i]['e_bill'])
        db.session.add(new_banklist)
        db.session.commit()
   
   return jsonify({'message': 'Add bank successfully'}),201
 
-
 @app.route('/getcard', methods=['POST'])
 def getcard():
   bank_id = request.json['bank_id']
+  user_id = jwt.decode(request.json['usertoken'], app.config['JWT_SECRET_KEY'], algorithms=['HS256'])['user_id']
   cardlist = cards.query.filter_by(bank_id=bank_id).all()
+
   # 陣列化資料
   serialized_cards_visa = []
   serialized_cards_ms = []
   serialized_cards_jcb = []
   for card in cardlist:
+    check = user_cardlist.query.filter_by(user_id=user_id,bank_id=card.bank_id,category=card.category,card_id=card.card_id).first()
     if(card.bank_id == '013' and int(card.card_id) >=101 and int(card.card_id) <=105): #& int(card.card_id) >= 101 & int(card.card_id) <= 105
       if(int(card.card_id) == 101):
-        serialized_card = {
-          'card_id': card.bank_id + card.category + card.card_id,
-          'card_name': '國泰CUBE卡'
-        }
+        if not check:
+          serialized_card = {
+            'card_id': card.bank_id + card.category + card.card_id,
+            'card_name': '國泰CUBE卡',
+            'ischeck': False
+          }
+        else:
+          serialized_card = {
+            'card_id': card.bank_id + card.category + card.card_id,
+            'card_name': '國泰CUBE卡',
+            'ischeck': True
+          }
       else:
         continue
     else:
-      serialized_card = {
-        'card_id': card.bank_id + card.category + card.card_id,
-        'card_name': card.card_name
-      }
+      if not check:
+        serialized_card = {
+          'card_id': card.bank_id + card.category + card.card_id,
+          'card_name': card.card_name,
+          'ischeck': False
+        }
+      else:
+        serialized_card = {
+          'card_id': card.bank_id + card.category + card.card_id,
+          'card_name': card.card_name,
+          'ischeck': True
+        }
+
     match(card.category):
       case '0':
         serialized_cards_visa.append(serialized_card)
@@ -220,7 +270,30 @@ def getcard():
       case '2':
         serialized_cards_jcb.append(serialized_card)
   
-  return jsonify({'visa':serialized_cards_visa, 'ms':serialized_cards_ms, 'jcb':serialized_cards_jcb}),203
+  return jsonify({'visa':serialized_cards_visa, 'ms':serialized_cards_ms, 'jcb':serialized_cards_jcb}),201
+
+@app.route('/add_card', methods=['POST'])
+def add_card():
+  data = request.json
+  user_id = jwt.decode(data['usertoken'], app.config['JWT_SECRET_KEY'], algorithms=['HS256'])['user_id']
+  bank_id = data['bank_id']
+  carddata = data['card_list']
+  user_cardlist.query.filter_by(user_id=user_id,bank_id=bank_id).delete()
+  db.session.commit()
+  for i in range(len(carddata)):
+    if(carddata[i]['ischeck'] == True):
+      if(carddata[i]['card_id'] == '0130101' or carddata[i]['card_id'] == '0131101' or carddata[i]['card_id'] == '0132101'): 
+        cube = ['101', '102', '103', '104', '105']
+        for j in cube:
+          new_cardlist = user_cardlist(user_id, carddata[i]['card_id'][:3], carddata[i]['card_id'][3:4], j)
+          db.session.add(new_cardlist)
+          db.session.commit()
+      else:
+        new_cardlist = user_cardlist(user_id, carddata[i]['card_id'][:3], carddata[i]['card_id'][3:4], carddata[i]['card_id'][4:])
+        db.session.add(new_cardlist)
+        db.session.commit()
+  
+  return jsonify({'message': 'Add bank successfully'}),201
 
 @app.route('/getshop', methods=['POST'])
 def getshop():
@@ -254,54 +327,46 @@ def getshop():
 
   # 列出距離最近的五個銷售店家
   names_list = []  # 創建一個空的列表來儲存名稱
-
   for result in results["results"]:
     names_list.append(result['name'])
 
-  word_s = ws(names_list,
-            sentence_segmentation=True,
-            segment_delimiter_set={'?', '？', '!', '！', '。', ',','，', ';', ':', '、'})
-
-  word_p = pos(word_s)
-  shop_list = []
-  def combine_wandp(w_list, p_list):
-    assert len(w_list) == len(p_list)
-    shop = ''
-    for w, p in zip(w_list, p_list):
-        if(p != 'Nc'):
-          shop += w
-    return shop
-  for i, sentence in enumerate(names_list):
-    shop_name = combine_wandp(word_s[i], word_p[i])
-    shop_list.append(shop_name)
-  print(shop_list)
-    
-  return jsonify(shop_list),203
+  return jsonify(names_list),203
 
 @app.route('/recommend', methods=['GET'])
 def recommend():
+  search_keyword = request.json["search_keyword"]
+  amount = request.json["amount"]
+  
   uri = "neo4j+s://cd122923.databases.neo4j.io"
   driver = GraphDatabase.driver(uri, auth=("neo4j", "密碼密碼密碼"))   #######################################neo4j密碼
 
   # 定義一個查詢函式
-  def run_query(driver, query):
-    with driver.session() as session:
-      result = session.run(query)
-      return result.data()
+  def run_query(tx, search_keyword):
+    query = (
+        "MATCH (source)-[:reward]->(destination) "
+        "WHERE toLower(destination.name) CONTAINS toLower($search_keyword) "
+        "WITH source, destination, labels(destination) as destLabels "
+        "RETURN source, destination, "
+        "CASE WHEN 'Categorical' IN destLabels "
+        "     THEN NULL "
+        "     ELSE [(destination)-[:include]->(categoricalNode:Categorical)-[:reward]->(categoricalCard:card) | categoricalCard] "
+        "END as categoricalCards"
+    )
 
-  # 例子: 執行一個簡單的查詢
-  query = "MATCH (n:超商) RETURN n LIMIT 100"
+    result = tx.run(query, search_keyword=search_keyword)
+    return result.data()
 
-  # 執行查詢
-  result = run_query(driver, query)
+  with driver.session() as session:
+    result = session.read_transaction(run_query, search_keyword)
 
-  result_Array = []
-  # 處理結果
+  # 查詢結果
   for record in result:
-    print(record['n']['name'])
-    result_Array.append(record['n']['name'])
+    print(f"Source: {record['source']}, Destination: {record['destination']}")
+    print("卡片：", record['source'])
+    
+  driver.close()
 
-  return jsonify({'card':result_Array}),203
+  return jsonify('cardlist'),201
 
 if __name__ == '__main__':
   app.run(debug='true',host='192.168.247.167') #192.168.50.151、192.168.176.197
