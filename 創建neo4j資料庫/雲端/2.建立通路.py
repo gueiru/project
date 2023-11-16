@@ -94,7 +94,7 @@ with driver.session() as session:
         session.write_transaction(create_knowledge_point, "嬰幼兒用品", "include", baby)
 print("----------------------------------------------------------------")
 
-# 國內餐飲
+# 餐廳
 with driver.session() as session:
     restaurants = [
         "王品牛排", "tasty西堤牛排", "丰龢和牛涮", "肉次方燒肉放題", "oh_my原燒",
@@ -104,8 +104,8 @@ with driver.session() as session:
         "有之和牛鍋物放題", "本格和牛燒肉放題", "繪馬別邸", "瓦城泰國料理", 
         "非常泰概念餐坊", "_1010湘", "大心新泰式麵食", "時時香RICE_BAR", "YABI_KITCHEN", 
         "月月THAI_BBQ", "樂子The_Dinner", "茹絲葵經典牛排館", "屋馬燒肉", "solo_pasta義大利麵", 
-        "俺達の肉屋_日本和牛專門店", "鹽之華法式餐廳", "廚房有雞花雕雞", "碳佐麻里精品燒肉", 
-        "与玥樓頂級粵菜餐廳", "RAW", "山海樓", "金蓬萊遵古台菜餐廳", "老新台菜", 
+        "俺達の肉屋_日本和牛專門店", "鹽之華", "廚房有雞花雕雞", "碳佐麻里精品燒肉", 
+        "与玥樓頂級粵菜", "RAW", "山海樓", "金蓬萊遵古台菜", "老新台菜", 
         "欣葉台菜", "欣葉小聚", "欣葉鐘菜", "NAGOMI和食饗宴", "欣葉日本料理",
         "欣葉SHABUSHABU", "咖哩匠", "欣葉生活廚房", "paparich金爸爸", "唐點小聚",
         "勝博殿", "大戶屋", "沃克牛排", "金色三麥", 
@@ -122,10 +122,10 @@ with driver.session() as session:
         
         "漢堡王", "鬍鬚張", "麥當勞", "星巴克", "TeaTop台灣第一味",
         "康青龍", "萬波島嶼紅茶", "貢茶", "赤鬼炙燒牛排", "misterdonut",
-        "爭鮮迴轉壽司", "漢堡王"
+        "爭鮮迴轉壽司", 
     ]
     for restaurant in restaurants:
-        session.write_transaction(create_knowledge_point, "國內餐飲", "include", restaurant)
+        session.write_transaction(create_knowledge_point, "餐廳", "include", restaurant)
 print("----------------------------------------------------------------")
 
 # 海外

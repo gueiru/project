@@ -17,12 +17,11 @@ def run_query(tx, search_keyword):
         "     ELSE [(destination)-[:include]->(categoricalNode:Categorical)-[:reward]->(categoricalCard:card) | categoricalCard] "
         "END as categoricalCards"
     )
-
     result = tx.run(query, search_keyword=search_keyword)
     return result.data()
 
 # 輸入關鍵詞
-search_keyword = "飯店"
+search_keyword = "book"
 with driver.session() as session:
     result = session.read_transaction(run_query, search_keyword)
 
