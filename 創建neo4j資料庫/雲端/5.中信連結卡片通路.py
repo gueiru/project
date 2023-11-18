@@ -39,7 +39,7 @@ def create_relationship(tx, from_node_name, to_node_names, relation_type):
             result = tx.run(merge_query, from_node_name=from_node_name, to_node_name=to_node_name)
 
             if result.peek():
-                print("--Relationship existed--")
+                print(" ")
             else:
                 print("++Relationship created++")
 
@@ -311,8 +311,8 @@ with driver.session() as session:
         "台灣中油",
         "燦坤", "全國電子", "順發3c", "三井3c", "大同3c",
         "大潤發", "大買家", "愛買", "家樂福",
-        "國內餐飲", "住宿", "連鎖飯店",
-        "旅行社", "航空公司"
+        "國內餐飲", "住宿", "飯店",
+        "旅行社", "飛機航空公司"
     ]
     session.write_transaction(create_relationship, "中信紅利卡_生活菁英", rewards, "reward")
 
@@ -348,7 +348,7 @@ with driver.session() as session:
 # 中信紅利晶緻卡_旅遊族
 with driver.session() as session:
     rewards = [
-        "海外", "旅行社", "住宿", "連鎖飯店", "國內餐飲"
+        "海外", "旅行社", "住宿", "飯店", "國內餐飲"
     ]
     session.write_transaction(create_relationship, "中信紅利晶緻卡_旅遊族", rewards, "reward")
 
@@ -378,7 +378,7 @@ with driver.session() as session:
 # 中信紅利御璽卡_旅遊族
 with driver.session() as session:
     rewards = [
-        "海外", "旅行社", "住宿", "連鎖飯店", "國內餐飲"
+        "海外", "旅行社", "住宿", "飯店", "國內餐飲"
     ]
     session.write_transaction(create_relationship, "中信紅利御璽卡_旅遊族", rewards, "reward")
 
@@ -419,7 +419,7 @@ with driver.session() as session:
         "toyota豐田", "Lexus凌志", "yoxi計程車", "iRent",
         "hotai購商城購物", "長源汽車", "和泰產險"
         "家樂福", "大潤發", "愛買", "ikea宜家家居", "特力屋", 
-        "旅行社", "航空公司", "連鎖飯店", 
+        "旅行社", "飛機航空公司", "飯店", 
         "Agoda", "Booking_com", "Expedia", "Hotels_com", "AsiaYo",
         "Trip_com", "Airbnb", "KKday", "KLOOK",
         "海外", "和泰pay"

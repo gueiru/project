@@ -39,7 +39,7 @@ def create_relationship(tx, from_node_name, to_node_names, relation_type):
             result = tx.run(merge_query, from_node_name=from_node_name, to_node_name=to_node_name)
 
             if result.peek():
-                print("--Relationship existed--")
+                print(" ")
             else:
                 print("++Relationship created++")
 
