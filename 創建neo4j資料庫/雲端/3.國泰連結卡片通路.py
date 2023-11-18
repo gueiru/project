@@ -30,16 +30,15 @@ def create_relationship(tx, from_node_name, to_node_names, relation_type):
         else:
             # 如果節點存在，則建立關聯
             merge_query = (
-                "MATCH (from_node {name: $from_node_name}) "
-                "MATCH (to_node {name: $to_node_name}) "
-                "MERGE (from_node)-[r:" + relation_type + "]->(to_node) "
-                "RETURN r"
-            )
-
+                    "MATCH (from_node {name: $from_node_name}) "
+                    "MATCH (to_node {name: $to_node_name}) "
+                    "MERGE (from_node)-[r:" + relation_type + "]->(to_node) "
+                    "RETURN r"
+                )
             result = tx.run(merge_query, from_node_name=from_node_name, to_node_name=to_node_name)
 
             if result.peek():
-                print("--Relationship existed--")
+                print(" ")
             else:
                 print("++Relationship created++")
 
@@ -56,7 +55,7 @@ with driver.session() as session:
         
         "虎航", "長榮航空", "華航", "星宇", "立榮",  "華信", 
         
-        "民宿", "青年旅館", "連鎖飯店",
+        "民宿", "青年旅館", "飯店",
         
         "KKday", "Agoda", "KLOOK", "Airbnb", "Hotels_com",
         "Expedia", "Booking_com", "Trip_com", "AsiaYo",
@@ -72,7 +71,7 @@ with driver.session() as session:
     rewards = [
         "遠東SOGO百貨", "太平洋百貨", "廣三SOGO",
         
-        "民宿", "青年旅館", "連鎖飯店",
+        "民宿", "青年旅館", "飯店",
         
         "茹絲葵經典牛排館", "屋馬燒肉", "solo_pasta義大利麵", 
         "俺達の肉屋_日本和牛專門店", "鹽之華", "廚房有雞花雕雞", "碳佐麻里精品燒肉", 
